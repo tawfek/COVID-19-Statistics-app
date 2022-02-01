@@ -294,7 +294,7 @@ class StatusComponent extends React.Component {
           ) {
             this.ChangeSiteLang(Lang2set(), true, true, [], current_country_is);
           }
-        });
+        }).catch((error)=>console.log(error));
     }
   }
   ChangeSiteLang = (
