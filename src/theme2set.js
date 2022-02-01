@@ -1,5 +1,5 @@
 
-import './App.css';
+import './styles/App.css';
 import Cookies from 'universal-cookie';
 
  function Theme2set () {

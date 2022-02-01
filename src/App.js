@@ -1,17 +1,13 @@
 import React from 'react';
-import './App.css';
+import './styles/App.css';
 import { withTranslation } from 'react-i18next';
-  
-import Lang2set from './lang2set'
-//import Mapo from './map';
-import FullMap from './fullmap'
+import tr from './localization/tr'
+import AppPage from './pages/AppPage'
  
- const dir_type = (Lang2set()==="en")?'ltr':'rtl';
 
 const App = ({t}) => (
-    (<div dir={dir_type} >
-  <FullMap/>
-
+    (<div dir={tr("dir")} >
+  <AppPage/>
     </div>)
 );
 
