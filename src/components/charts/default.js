@@ -5,9 +5,22 @@ import {
     TeamOutlined,
     ClockCircleOutlined,
   } from "@ant-design/icons";
-export class defaultStatistics extends React.Component {
-    // render_status , final_sereis
-  render() {
+
+function mapStateToProps(state){
+
+  return {
+    user: state.user,
+    data: state.data
+    
+  }
+};
+
+class defaultStatistics extends React.Component {
+
+    // status_data , final_seriess
+    render() {
+    let {data} = this.props 
+    let {status_data, final_seriess} = data 
     const pieOptions = {
         chart: {
           type: "donut",
@@ -31,7 +44,7 @@ export class defaultStatistics extends React.Component {
         <Col span={24}>
           <p>
             <ClockCircleOutlined /> {__("last update")}{" "}
-            {this.ReactTimeago(new Date(Render_status.time))}
+            {this.ReactTimeago(new Date(status_data.time))}
           </p>
         </Col>
         <Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={4}>
@@ -47,15 +60,15 @@ export class defaultStatistics extends React.Component {
             <Col xs={12} sm={8} md={8} lg={8} xl={8} xxl={8}>
               <Statistic
                 title={__("Total Cases")}
-                value={Render_status.cases.total}
+                value={status_data.cases.total}
                 prefix={<TeamOutlined />}
                 suffix={
                   <Badge
                     dir="ltr"
                     count={
-                      Render_status.cases.new === null
+                      status_data.cases.new === null
                         ? 0
-                        : Render_status.cases.new
+                        : status_data.cases.new
                     }
                   ></Badge>
                 }
@@ -65,7 +78,7 @@ export class defaultStatistics extends React.Component {
             <Col xs={12} sm={8} md={8} lg={8} xl={8} xxl={8}>
               <Statistic
                 title={__("active cases")}
-                value={Render_status.cases.active}
+                value={status_data.cases.active}
                 prefix={
                   <svg
                     t="1587045672517"
@@ -97,7 +110,7 @@ export class defaultStatistics extends React.Component {
                 valueStyle={{
                   color: "#3f8600",
                 }}
-                value={Render_status.cases.recovered}
+                value={status_data.cases.recovered}
                 prefix={
                   <svg
                     t="1587039986744"
@@ -125,9 +138,9 @@ export class defaultStatistics extends React.Component {
                   color: "#3f8600",
                 }}
                 value={
-                  Render_status.tests.total == null
+                  status_data.tests.total == null
                     ? 0
-                    : Render_status.tests.total
+                    : status_data.tests.total
                 }
                 prefix={
                   <svg
@@ -155,7 +168,7 @@ export class defaultStatistics extends React.Component {
                 valueStyle={{
                   color: "#cf1322",
                 }}
-                value={Render_status.cases.critical}
+                value={status_data.cases.critical}
                 prefix={
                   <svg
                     t="1587039814343"
@@ -191,16 +204,16 @@ export class defaultStatistics extends React.Component {
                   <Badge
                     dir="ltr"
                     count={
-                      Render_status.deaths.new === null
+                      status_data.deaths.new === null
                         ? 0
-                        : Render_status.deaths.new
+                        : status_data.deaths.new
                     }
                   ></Badge>
                 }
                 value={
-                  Render_status.deaths.total == null
+                  status_data.deaths.total == null
                     ? 0
-                    : Render_status.deaths.total
+                    : status_data.deaths.total
                 }
                 prefix={
                   <svg

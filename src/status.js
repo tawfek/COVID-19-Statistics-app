@@ -199,8 +199,7 @@ class StatusComponent extends React.Component {
     return timeAgo.format(datee);
   };
 
-  setActiveKey = (e, history, isarray = false) => {
-    this.setState({ activekey: e });
+  setActiveKey = (e) => {
     this.props.setCurrentCountry({ currentKey: e, currentCountry: e });
     MarkerDB.countries.map((country, key) => {
       if (country.country.search.toLowerCase() === e.toLowerCase()) {
@@ -210,9 +209,7 @@ class StatusComponent extends React.Component {
       }
       return true;
     });
-    // if (isarray) {
-    //   history.replace(`/${this.props.user.language}/${e}`);
-    // }
+
   };
 
   ChangeSiteTheme = () => {
@@ -227,8 +224,7 @@ class StatusComponent extends React.Component {
   };
   componentDidMount() {
     this.GetStatus(this.GetDays(7, true));
-    this.ChangeMapTheme(3000);
-
+  
     if (this.props.location !== undefined) {
       const locationprops = this.props.location.pathname;
       if (
@@ -307,9 +303,7 @@ class StatusComponent extends React.Component {
     if (isarray) {
       if (isMount) {
         if (country !== "") {
-          //history.replace(`${lang}/${this.state.activekey}`)
           window.location = `/${lang}/${country}`;
-          //window.location.reload();
         }
       }
     }
@@ -336,18 +330,18 @@ class StatusComponent extends React.Component {
     if (children) {
       MarkerDB.countries.forEach((country) => {
         if (country.country.iso === children) {
-          this.setCurrentCountry({ currentCountry:country.country.iso,currentKey:country.country.ison})
+          this.props.setCurrentCountry({ currentCountry:country.country.iso,currentKey:country.country.ison})
         }
       });
     }
 
     const { Data } = this.state;
 
-    if (this.props.keyChanged === true) {
-      setTimeout(() => {
-        this.setCurrentCountry({currentKey:this.props.activekey,currentCountry:this.props.activekey})
-      }, 100);
-    }
+    // if (this.props.keyChanged === true) {
+    //   setTimeout(() => {
+    //     this.props.setCurrentCountry({currentKey:this.props.activekey,currentCountry:this.props.activekey})
+    //   }, 100);
+    // }
   
 
     return (
@@ -378,7 +372,7 @@ class StatusComponent extends React.Component {
                         theme="dark"
                         dir="ltr"
                         onChange={(key) => {
-                          this.setActiveKey(key, history, true);
+                          this.setActiveKey(key);
                         }}
                         animated={false}
                         defaultActiveKey={match.params.country}
