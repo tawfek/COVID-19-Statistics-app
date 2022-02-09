@@ -11,3 +11,4 @@ export const SET_ZOOM = "SET_ZOOM" ;
 export const SET_VIEWPORT = "SET_VIEWPORT" ;
 export const SET_MAP_LOADED = "SET_MAP_LOADED" ;
 export const SET_FETCHED_DATA = "SET_FETCHED_DATA" ;
+export const SET_CURRENT_COUNTRY_DATA = "SET_CURRENT_COUNTRY_DATA"

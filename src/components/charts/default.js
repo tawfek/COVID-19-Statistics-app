@@ -1,6 +1,10 @@
 import React from "react";
 import __ from "../../localization/tr"
-import {Row,Col,Badge,Statistic} from "ant"
+import {Row,Col,Badge,Statistic} from "antd"
+import Chart from "react-apexcharts";
+import {connect} from "react-redux"
+import {ReactTimeago} from '../helpers'
+
 import {
     TeamOutlined,
     ClockCircleOutlined,
@@ -10,17 +14,20 @@ function mapStateToProps(state){
 
   return {
     user: state.user,
-    data: state.data
+    data: state.data,
+    country: state.country
     
   }
 };
 
-class defaultStatistics extends React.Component {
+class DefaultStatistics extends React.Component {
 
-    // status_data , final_seriess
+    // currentCountryData , final_seriess
     render() {
-    let {data} = this.props 
-    let {status_data, final_seriess} = data 
+    let {data,country} = this.props 
+    let {fetchedData} = data 
+    let {currentCountryData} = country 
+    let {isLoaded} = fetchedData 
     const pieOptions = {
         chart: {
           type: "donut",
@@ -39,19 +46,28 @@ class defaultStatistics extends React.Component {
         ],
         dataLabels: { enabled: true },
       };
+    
+if(isLoaded && currentCountryData != null) {
+
+  let {deaths, cases,tests ,time} = currentCountryData 
+  let ChartData = [
+    deaths.total || 0,
+    cases.recovered || 0,
+    cases.active || 0,
+  ];
     return (
       <Row key={0}>
         <Col span={24}>
           <p>
             <ClockCircleOutlined /> {__("last update")}{" "}
-            {this.ReactTimeago(new Date(status_data.time))}
+            {ReactTimeago(new Date(time))}
           </p>
         </Col>
         <Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={4}>
           <Chart
             options={pieOptions}
-            key={key}
-            series={final_seriess}
+            key={12}
+            series={ChartData}
             type="donut"
           />
         </Col>
@@ -60,15 +76,13 @@ class defaultStatistics extends React.Component {
             <Col xs={12} sm={8} md={8} lg={8} xl={8} xxl={8}>
               <Statistic
                 title={__("Total Cases")}
-                value={status_data.cases.total}
+                value={cases.total || 0}
                 prefix={<TeamOutlined />}
                 suffix={
                   <Badge
                     dir="ltr"
                     count={
-                      status_data.cases.new === null
-                        ? 0
-                        : status_data.cases.new
+                      cases.new || 0
                     }
                   ></Badge>
                 }
@@ -78,7 +92,7 @@ class defaultStatistics extends React.Component {
             <Col xs={12} sm={8} md={8} lg={8} xl={8} xxl={8}>
               <Statistic
                 title={__("active cases")}
-                value={status_data.cases.active}
+                value={cases.active || 0}
                 prefix={
                   <svg
                     t="1587045672517"
@@ -110,7 +124,7 @@ class defaultStatistics extends React.Component {
                 valueStyle={{
                   color: "#3f8600",
                 }}
-                value={status_data.cases.recovered}
+                value={cases.recovered || 0}
                 prefix={
                   <svg
                     t="1587039986744"
@@ -138,9 +152,7 @@ class defaultStatistics extends React.Component {
                   color: "#3f8600",
                 }}
                 value={
-                  status_data.tests.total == null
-                    ? 0
-                    : status_data.tests.total
+                  tests.total || 0
                 }
                 prefix={
                   <svg
@@ -168,7 +180,7 @@ class defaultStatistics extends React.Component {
                 valueStyle={{
                   color: "#cf1322",
                 }}
-                value={status_data.cases.critical}
+                value={cases.critical || 0}
                 prefix={
                   <svg
                     t="1587039814343"
@@ -204,16 +216,12 @@ class defaultStatistics extends React.Component {
                   <Badge
                     dir="ltr"
                     count={
-                      status_data.deaths.new === null
-                        ? 0
-                        : status_data.deaths.new
+                      deaths.new || 0
                     }
                   ></Badge>
                 }
                 value={
-                  status_data.deaths.total == null
-                    ? 0
-                    : status_data.deaths.total
+                  deaths.total || 0
                 }
                 prefix={
                   <svg
@@ -239,6 +247,12 @@ class defaultStatistics extends React.Component {
         </Col>
       </Row>
     );
+              } else{
+                return ('Loading...')
+              }
   }
 }
 
+
+
+export default connect(mapStateToProps)(DefaultStatistics)

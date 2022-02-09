@@ -10,7 +10,8 @@ import {
   SET_ZOOM,
   SET_VIEWPORT,
   SET_MAP_LOADED, 
-  SET_FETCHED_DATA
+  SET_FETCHED_DATA,
+  SET_CURRENT_COUNTRY_DATA
 } from "../constants/action-types";
 
 export function setLanguage(payload) {
@@ -23,6 +24,9 @@ export function setDarkMode(payload) {
 
 export function setCurrentCountry(payload) {
   return { type: SET_CURRENT_COUNTRY, payload };
+}
+export function setCurrentCountryData(payload) {
+  return {type: SET_CURRENT_COUNTRY_DATA, payload}
 }
 export function setPageTitle(payload){
     return { type:SET_PAGE_TITLE, payload}
@@ -57,3 +61,5 @@ export function setMapLoaded(payload) {
 export function setFetchedData(payload) {
   return { type: SET_FETCHED_DATA, payload }
 }
+
+ 

@@ -1,5 +1,5 @@
 import React from 'react';
-import Map from '../components/map'
+import Map from '../components/map/map'
 import {connect} from "react-redux" 
 import {BrowserRouter as Router,Switch} from "react-router-dom";
 import * as MarkerDB from '../countries.json'
@@ -81,28 +81,16 @@ MarkerDB.countries.forEach((country)=>{
     }).catch(err =>{console.log(err)})
 return'';
 
-}
+}  
     )
 
 }
 componentDidMount(){
 this.GetStatus();
-setTimeout(() => {
- 
-}, 5000);
-}
- 
- shouldComponentUpdate(nextProps, nextState) {
-  return true;
+
 }
   render(){
       const { user, MapConfig, country } = this.props;
-      
-
-         
-   
-
-    
 const Loading=()=>{
 var l = this.state.fetch_loading
 if(l){
@@ -115,7 +103,7 @@ return('');
 
 }
  
-const {currentKey,currentCountry} = this.props.country ;
+const {currentKey,currentCountry} = country ;
       return (
         <div>
 
@@ -137,7 +125,7 @@ const {currentKey,currentCountry} = this.props.country ;
  <Col justify="center" align="middle"  xs={24} xm={24} md={{span:24}} lg={{span:22,offset:1}} xl={{span:20,offset:2}}>
  <Row     justify="center" align="middle" >
    <Col md={24} sm={24} className="copyright" >
-   {__("made with")} <HeartFilled style={{color:"#FF3B3B"}} /> {__("by")} <a target="_blank" title="@66KCC" href="https://instagram.com/66kcc" rel="nofollow noindex noopener noreferrer">@66kcc</a>
+   {__("made with")} <HeartFilled style={{color:"#FF3B3B"}} /> {__("by")} <a target="_blank" title="@tawfekmt" href="https://instagram.com/tawfekmt" rel="nofollow noindex noopener noreferrer">@tawfekmt</a>
    </Col>
    <br/>
    <br/>

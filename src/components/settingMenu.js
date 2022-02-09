@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { setDarkMode, setLanguage } from "../store/actions";
 import { Menu, Switch, Radio } from "antd";
 import { Languages } from "../localization/languages";
+
 import i18n from "../localization/i18n"
 function mapStateToProps(state) {
   return { user: state.user, country: state.country };
@@ -13,6 +14,7 @@ function mapDispatchToProps(dispatch) {
     setDarkMode: (darkMode) => dispatch(setDarkMode(darkMode)),
   };
 }
+
 const MoonIcon = (
   <svg
     t="1588412650090"
@@ -49,7 +51,16 @@ const SunIcon = (
     ></path>
   </svg>
 );
+
+ 
+
 const settings = ({ user, setLanguage, setDarkMode }) => {
+
+  const changeLanguage = (language_key)=>{
+    setLanguage(language_key) ; 
+    i18n.changeLanguage(language_key);
+  }
+
   return (
     <Menu>
       <Menu.Item key="0">
@@ -62,7 +73,7 @@ const settings = ({ user, setLanguage, setDarkMode }) => {
             return (
               <Radio.Button
                 key={language.key}
-                onClick={() => { setLanguage(language.key) ; i18n.changeLanguage(language.key);}}
+                onClick={() => {changeLanguage(language.key)}}
                 value={language.key}
               >
                 {language.name}

@@ -2,6 +2,7 @@ import React from "react";
 import * as MarkerDB from "./countries.json";
 import { Helmet } from "react-helmet";
 import {Row,Col,Tabs,Button,Skeleton,Dropdown,Menu,Collapse,Badge,Statistic,Result,Typography,} from "antd";
+import DefaultStatistics from "./components/charts/default"
 import moment from "moment";
 import SettingsMenu from "./components/settingMenu"
 import {
@@ -34,7 +35,8 @@ import { SettingFilled } from "@ant-design/icons";
 import __ from "./localization/tr";
 import Flag from "react-flags";
 import { connect } from "react-redux";
-import { setDarkMode,setCurrentCountry,setPageTitle,setPageDescription, setLanguage } from "./store/actions";
+import {setCountry} from "./components/helpers"
+import { setDarkMode,setPageTitle,setPageDescription, setLanguage } from "./store/actions";
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 const { Title } = Typography;
@@ -49,7 +51,6 @@ function mapDispatchToProps(dispatch) {
   return {
     setDarkMode: (darkMode) => dispatch(setDarkMode(darkMode)),
     setLanguage: (language) => dispatch(setLanguage(language)),
-    setCurrentCountry: (country) => dispatch(setCurrentCountry(country)),
     setPageTitle:(title) => dispatch(setPageTitle(title)),
     setPageDescription:(description)=> dispatch(setPageDescription(description)),
 
@@ -58,9 +59,7 @@ function mapDispatchToProps(dispatch) {
 const API_LINK = "https://middlecovid.herokuapp.com/cov.php?";
 const cookies = new Cookies();
 class StatusComponent extends React.Component {
-  componentDidUpdate() {
-    console.log(this.props);
-  }
+
   constructor(props) {
     super(props);
     this.ChangeSiteTheme = this.ChangeSiteTheme.bind(this);
@@ -132,8 +131,9 @@ class StatusComponent extends React.Component {
   AllCountries = [];
   GetStatus = (Date) => {
     MarkerDB.countries.map((country) => {
+      country = country.country
       this.AllCountries.push({
-        country: country.country.search,
+        country: country.search,
         data: [],
         dates: [],
       });
@@ -198,14 +198,17 @@ class StatusComponent extends React.Component {
 
     return timeAgo.format(datee);
   };
-
+  
   setActiveKey = (e) => {
-    this.props.setCurrentCountry({ currentKey: e, currentCountry: e });
+    console.log(e)
+
     MarkerDB.countries.map((country, key) => {
-      if (country.country.search.toLowerCase() === e.toLowerCase()) {
-        const country_name = __(country.country.name)
+      country = country.country
+      if (country.iso.toLowerCase() == e.toLowerCase()) {
+        const country_name = __(country.name)
         this.props.setPageTitle(`${country_name} | ${__('header title')} ${country_name} `)   
         this.props.setPageDescription(`${__("header info")} ${country_name} ${__("with charts")}`)
+        setCountry(country.iso)
       }
       return true;
     });
@@ -245,24 +248,24 @@ class StatusComponent extends React.Component {
         .then((response) => response.json())
         .then((data) => {
           MarkerDB.countries.map((country, key) => {
+            country = country.country
             if (
-              country.country.iso.toLowerCase() == data.country.toLowerCase()
+              country.iso.toLowerCase() == data.country.toLowerCase()
             ) {
-              current_country_is = country.country.search;
+              current_country_is = country.search;
             }
             if (
               locationprops
                 .toLowerCase()
-                .indexOf(country.country.search.toLowerCase()) !== -1
+                .indexOf(country.search.toLowerCase()) !== -1
             ) {
-              this.props.setCurrentCountry({ currentKey:country.country.search,currentCountry:country.country.search})
-
+              setCountry(country.iso) 
               const country_name_title =
                 Lang2set() == "ar"
-                  ? country.country.name_ar
-                  : country.country.name;
+                  ? country.name_ar
+                  : country.name;
               const _title =
-                country.country.iso == "IL"
+                country.iso == "IL"
                   ? "header title noncountry"
                   : "header title";
               this.setState({
@@ -329,8 +332,8 @@ class StatusComponent extends React.Component {
     const children = false;
     if (children) {
       MarkerDB.countries.forEach((country) => {
-        if (country.country.iso === children) {
-          this.props.setCurrentCountry({ currentCountry:country.country.iso,currentKey:country.country.ison})
+        country = country.country
+        if (country.iso === children) {
         }
       });
     }
@@ -406,7 +409,7 @@ class StatusComponent extends React.Component {
                             <TabPane
                               tab={
                                 <Route
-                                  href={`/${this.props.user.language}/${country.country.search}`}
+                                  href={`/${this.props.user.language}/${country.search}`}
                                 >
                                   <div>
                                     {country_name}
@@ -421,7 +424,7 @@ class StatusComponent extends React.Component {
                                   </div>
                                 </Route>
                               }
-                              key={Country.search}
+                              key={Country.iso}
                             >
                               <Row>
                                 <Col
@@ -445,7 +448,7 @@ class StatusComponent extends React.Component {
                                       var today_avail = 1;
                                       if (
                                         state_country.country ==
-                                        country.country.search
+                                        country.search
                                       ) {
                                         state_country.data.map(
                                           (country, key) => {
@@ -475,19 +478,17 @@ class StatusComponent extends React.Component {
                                             return true;
                                           }
                                         );
-                                        if (today_avail === 1) {
-                                          if (current_dates.length > 0) {
+                                        if (1 === 1) {
+                                          if (2==2) {
                                             const Render_status =
                                               current_dates[0];
-                                         
+                                            console.log(Render_status)
                                             const final_seriess = [
                                               Render_status.deaths.total,
                                               Render_status.cases.recovered,
                                               Render_status.cases.active,
                                             ];
-                                            return (
-                                           "######default######s"
-                                            );
+                                            return (<h1>hi5</h1>);
                                           } else {
                                             return this.Loading;
                                           }
@@ -504,6 +505,7 @@ class StatusComponent extends React.Component {
                                       }
                                       return true;
                                     })}
+                                    <DefaultStatistics/>
                                   </div>
                                 </Col>
                                 <Col
@@ -591,7 +593,7 @@ class StatusComponent extends React.Component {
                                         ];
                                         if (
                                           state_country.country ===
-                                          country.country.search
+                                          country.search
                                         ) {
                                           state_country.data.map(
                                             (country, key) => {
@@ -718,7 +720,7 @@ class StatusComponent extends React.Component {
                                         ];
                                         if (
                                           state_country.country ===
-                                          country.country.search
+                                          country.search
                                         ) {
                                           state_country.data.map(
                                             (country, key) => {
@@ -810,7 +812,7 @@ class StatusComponent extends React.Component {
                                           var Panel_result = [];
                                           if (
                                             state_country.country ===
-                                            country.country.search
+                                            country.search
                                           ) {
                                             state_country.data.sort(function (
                                               a,
@@ -1196,7 +1198,7 @@ class StatusComponent extends React.Component {
 
                                         if (
                                           state_country.country ===
-                                          country.country.search
+                                          country.search
                                         ) {
                                           state_country.data.map(
                                             (country, key) => {

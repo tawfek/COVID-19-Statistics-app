@@ -11,7 +11,8 @@ import {
   SET_LONG,
   SET_VIEWPORT,
   SET_MAP_LOADED,
-  SET_FETCHED_DATA
+  SET_FETCHED_DATA,
+  SET_CURRENT_COUNTRY_DATA
 } from "../constants/action-types";
 
 
@@ -26,8 +27,9 @@ const initialState = {
     },
   },
   country: {
-    currentKey: 17,
+    currentKey:   "BH",
     currentCountry: "Bahrain",
+    currentCountryData: null
   },
   page: {
     title: "page small title | page title",
@@ -42,6 +44,7 @@ const initialState = {
     }
   },
   MapConfig: {
+    ref : null ,
     loaded: false,
     styles: {
       dark: "mapbox://styles/tawfek/ck96xjmt86a9i1iqpz6bbcvbo",
@@ -60,6 +63,10 @@ function rootReducer(state = initialState, action) {
         user: Object.assign({}, state.user, {
           ...state.user,
           language: action.payload,
+        }),
+        MapConfig: Object.assign({}, state.MapConfig, {
+          ...state.MapConfig,
+          ref: 1,
         }),
       });
     case SET_DARK_MODE:
@@ -155,8 +162,8 @@ function rootReducer(state = initialState, action) {
       case SET_MAP_LOADED:
         return Object.assign({}, state, {
           ...state,
-          map: Object.assign({}, state.map, {
-            ...state.map,
+          MapConfig : Object.assign({}, state.MapConfig, {
+            ...state.MapConfig,
             loaded: action.payload,
         
           }),
@@ -170,6 +177,15 @@ function rootReducer(state = initialState, action) {
         
           }),
         });
+        case SET_CURRENT_COUNTRY_DATA:
+          return Object.assign({}, state, {
+            ...state,
+            country: Object.assign({}, state.country, {
+              ...state.country,
+              currentCountryData: action.payload,
+          
+            }),
+          });
     default:
       return state;
   }
