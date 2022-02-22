@@ -5,31 +5,28 @@ import { ENDPOINT } from "./endpoint";
 import * as Countries from "../countries.json";
 import axios from "axios";
 
- const GetCountriesData = () => {
+const GetCountriesData = () => {
   return async (dispatch) => {
     let fullData = [];
-     Countries.countries.forEach(async (country) => {
+    Countries.countries.forEach(async (country) => {
       let countryId = country.country.search;
 
       try {
-         await axios
-          .get(`${ENDPOINT}?country=${countryId}`)
-          .then((response) => {
-            response = response.data
-            if (response[0].response !== undefined) {
-              fullData.push({
-                country: countryId,
-                response: response[0].response[response[0].response.length - 1],
-              });
-            }
-         
-          });
-          dispatch(
-            setFetchedData({
-              data: fullData,
-              isLoaded: true,
-            })
-          );
+        await axios.get(`${ENDPOINT}?country=${countryId}`).then((response) => {
+          response = response.data;
+          if (response[0].response !== undefined) {
+            fullData.push({
+              country: countryId,
+              response: response[0].response[response[0].response.length - 1],
+            });
+          }
+        });
+        dispatch(
+          setFetchedData({
+            data: fullData,
+            isLoaded: true,
+          })
+        );
       } catch (error) {
         console.error(error);
         message.error(__("unexpected-error"));
@@ -38,4 +35,4 @@ import axios from "axios";
   };
 };
 
-export default GetCountriesData ;
+export default GetCountriesData;

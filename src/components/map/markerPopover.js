@@ -173,7 +173,7 @@ class MarkerPopover extends React.Component {
         </Row>
       );
     } else {
-      return (<LoadingSkeleton/>);
+      return <LoadingSkeleton />;
     }
   }
 }

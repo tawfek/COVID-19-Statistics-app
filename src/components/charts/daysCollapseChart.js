@@ -3,14 +3,7 @@ import Chart from "react-apexcharts";
 import __ from "../../localization/tr";
 import { connect } from "react-redux";
 import { GetOneKey } from "../helpers";
-import {
-  Row,
-  Col,
-  Collapse,
-  Badge,
-  Statistic,
-  Typography,
-} from "antd";
+import { Row, Col, Collapse, Badge, Statistic, Typography } from "antd";
 import {
   TeamOutlined,
   HistoryOutlined,
@@ -281,7 +274,7 @@ class DaysCollapseChart extends React.Component {
         </Row>
       );
     } else {
-      return (<LoadingSkeleton />);
+      return <LoadingSkeleton />;
     }
   }
 }

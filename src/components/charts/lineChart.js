@@ -4,10 +4,8 @@ import __ from "../../localization/tr";
 import { connect } from "react-redux";
 import { GetOneKey } from "../helpers";
 import { LoadingSkeleton } from "../Loading";
-import {Typography,} from "antd";
-import {
-  AreaChartOutlined,
-} from "@ant-design/icons";
+import { Typography } from "antd";
+import { AreaChartOutlined } from "@ant-design/icons";
 const { Title } = Typography;
 function mapStateToProps(state) {
   return {
@@ -82,28 +80,24 @@ class LineChart extends React.Component {
 
       return (
         <>
-        <span
-        style={{ textAlign: __("text-align") }}
-      >
-        <Title level={2}>
-          {" "}
-          <AreaChartOutlined />{" "}
-          {__("chart-title")}
-        </Title>
-        <p>{__("chart-info")}</p>
-      </span>
-        <Chart
-          key={2}
-          options={options}
-          series={series}
-          type="area"
-          height={300}
-        />
+          <span style={{ textAlign: __("text-align") }}>
+            <Title level={2}>
+              {" "}
+              <AreaChartOutlined /> {__("chart-title")}
+            </Title>
+            <p>{__("chart-info")}</p>
+          </span>
+          <Chart
+            key={2}
+            options={options}
+            series={series}
+            type="area"
+            height={300}
+          />
         </>
-
       );
     } else {
-      return (<LoadingSkeleton/>);
+      return <LoadingSkeleton />;
     }
   }
 }

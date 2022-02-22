@@ -1,10 +1,10 @@
 export const Languages = [
-    {
-      name: "English",
-      key: "en",
-    },
-    {
-      name: "العربية",
-      key: "ar",
-    },
-  ];
+  {
+    name: "English",
+    key: "en",
+  },
+  {
+    name: "العربية",
+    key: "ar",
+  },
+];

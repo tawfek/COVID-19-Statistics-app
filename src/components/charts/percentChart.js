@@ -4,10 +4,8 @@ import __ from "../../localization/tr";
 import { connect } from "react-redux";
 import { GetOneKey } from "../helpers";
 import { LoadingSkeleton } from "../Loading";
-import {Typography,} from "antd";
-import {
-  PercentageOutlined,
-} from "@ant-design/icons";
+import { Typography } from "antd";
+import { PercentageOutlined } from "@ant-design/icons";
 const { Title } = Typography;
 
 function mapStateToProps(state) {
@@ -54,16 +52,12 @@ class PercentChart extends React.Component {
         xaxis: {
           categories: GetOneKey(StatisticData, "day"),
         },
-        colors: [
-          "#FF3B3B",
-          "#05C270",
-          "#0063F8","#F06735"
-        ],
+        colors: ["#FF3B3B", "#05C270", "#0063F8", "#F06735"],
       };
       const series = [
         {
           name: __("Deaths"),
-          data:  GetOneKey(deaths, "total"),
+          data: GetOneKey(deaths, "total"),
         },
         {
           name: __("Recovred"),
@@ -71,37 +65,34 @@ class PercentChart extends React.Component {
         },
 
         {
-            name: __("active cases"),
-            data: GetOneKey(cases, "active"),
-          },
-          {
-            name: __("Critical cases"),
-            data: GetOneKey(cases, "critical"),
-          },
+          name: __("active cases"),
+          data: GetOneKey(cases, "active"),
+        },
+        {
+          name: __("Critical cases"),
+          data: GetOneKey(cases, "critical"),
+        },
       ];
 
       return (
         <>
-        <span
-        style={{ textAlign: __("text-align") }}
-        >
-        <Title level={2}>
-          <PercentageOutlined />{" "}
-          {__("percent-title")}
-        </Title>
-        <p>{__("percent-info")}</p>
-      </span>  
-        <Chart
-          key={2}
-          options={options}
-          series={series}
-          type="bar"
-          height={300}
+          <span style={{ textAlign: __("text-align") }}>
+            <Title level={2}>
+              <PercentageOutlined /> {__("percent-title")}
+            </Title>
+            <p>{__("percent-info")}</p>
+          </span>
+          <Chart
+            key={2}
+            options={options}
+            series={series}
+            type="bar"
+            height={300}
           />
-          </>
+        </>
       );
     } else {
-      return (<LoadingSkeleton/>);
+      return <LoadingSkeleton />;
     }
   }
 }

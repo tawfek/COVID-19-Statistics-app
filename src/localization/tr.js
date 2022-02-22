@@ -1,4 +1,4 @@
-import i18n from './i18n'
+import i18n from "./i18n";
 
-const  __ = (cell) => (i18n.t(cell));
-export default __
+const __ = (cell) => i18n.t(cell);
+export default __;

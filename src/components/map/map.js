@@ -71,9 +71,9 @@ class Map extends React.Component {
     const ReloadButton = () => {
       if (
         Number(latitude).toFixed(2) !==
-          Number(defaultViewPort.latitude).toFixed(2) ||
+        Number(defaultViewPort.latitude).toFixed(2) ||
         Number(longitude).toFixed(2) !==
-          Number(defaultViewPort.longitude).toFixed(2) ||
+        Number(defaultViewPort.longitude).toFixed(2) ||
         Number(zoom).toFixed(2) !== Number(defaultViewPort.zoom).toFixed(2)
       ) {
         return (
@@ -107,9 +107,9 @@ class Map extends React.Component {
           <NavigationControl showCompass={false} />
           {Number(latitude).toFixed(2) !==
             Number(defaultViewPort.latitude).toFixed(2) ||
-          Number(longitude).toFixed(2) !==
+            Number(longitude).toFixed(2) !==
             Number(defaultViewPort.longitude).toFixed(2) ||
-          Number(zoom).toFixed(2) !==
+            Number(zoom).toFixed(2) !==
             Number(defaultViewPort.zoom).toFixed(2) ? (
             <ReloadButton />
           ) : (

@@ -1,9 +1,9 @@
 import React from "react";
 import * as MarkerDB from "./countries.json";
-import {Row,Col,Tabs,Button,Dropdown} from "antd";
-import DefaultStatistics from "./components/charts/default"
-import LineChart from "./components/charts/lineChart"
-import SettingsMenu from "./components/settingMenu"
+import { Row, Col, Tabs, Button, Dropdown } from "antd";
+import DefaultStatistics from "./components/charts/default";
+import LineChart from "./components/charts/lineChart";
+import SettingsMenu from "./components/settingMenu";
 import {
   BrowserRouter as Router,
   withRouter,
@@ -16,40 +16,46 @@ import { SettingFilled } from "@ant-design/icons";
 import __ from "./localization/tr";
 import Flag from "react-flags";
 import { connect } from "react-redux";
-import { setCountry} from "./components/helpers"
-import { setPageTitle,setPageDescription } from "./store/actions";
+import { setCountry } from "./components/helpers";
+import { setPageTitle, setPageDescription } from "./store/actions";
 import PercentChart from "./components/charts/percentChart";
-import DaysCollapseChart from "./components/charts/daysCollapseChart";  
+import DaysCollapseChart from "./components/charts/daysCollapseChart";
 import LiquidChart from "./components/charts/liquidChart";
 const { TabPane } = Tabs;
 
-
 function mapStateToProps(state) {
-  return { user: state.user,country:state.country,page:state.page };
+  return { user: state.user, country: state.country, page: state.page };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    setPageTitle:(title) => dispatch(setPageTitle(title)),
-    setPageDescription:(description)=> dispatch(setPageDescription(description)),
+    setPageTitle: (title) => dispatch(setPageTitle(title)),
+    setPageDescription: (description) =>
+      dispatch(setPageDescription(description)),
   };
 }
 
 class Layout extends React.Component {
-
-
   render() {
- 
-
-  
     return (
       <Router>
         <Row>
-  
           <Col dir="ltr" sm={24} md={24}>
             <Switch>
-              <Redirect exact from="/" to={"/" + this.props.user.language + "/Bahrain"} />
-              <Redirect exact from="/ar" to={"/" + this.props.user.language + "/Bahrain"} />
-              <Redirect exact from="/en" to={"/" + this.props.user.language + "/Bahrain"} />
+              <Redirect
+                exact
+                from="/"
+                to={"/" + this.props.user.language + "/Bahrain"}
+              />
+              <Redirect
+                exact
+                from="/ar"
+                to={"/" + this.props.user.language + "/Bahrain"}
+              />
+              <Redirect
+                exact
+                from="/en"
+                to={"/" + this.props.user.language + "/Bahrain"}
+              />
               <Route
                 path="/:lang/:country?"
                 render={({ match, history }) => {
@@ -59,7 +65,7 @@ class Layout extends React.Component {
                         theme="dark"
                         dir="ltr"
                         onChange={(countryIso) => {
-                          setCountry(countryIso)
+                          setCountry(countryIso);
                         }}
                         animated={false}
                         defaultActiveKey={this.props.country.currentKey}
@@ -69,7 +75,7 @@ class Layout extends React.Component {
                         tabBarExtraContent={
                           <Dropdown
                             trigger={["click"]}
-                            overlay={<SettingsMenu/>}
+                            overlay={<SettingsMenu />}
                           >
                             <Button
                               type="primary"
@@ -85,20 +91,20 @@ class Layout extends React.Component {
                           </Dropdown>
                         }
                       >
-                        
                         {MarkerDB.countries.map((country, key) => {
-                          const Country = country.country 
-                          const country_name = __(Country.name)
+                          const Country = country.country;
+                          const country_name = __(Country.name);
                           return (
                             <TabPane
                               tab={
                                 <Route
                                   href={`/${this.props.user.language}/${Country.search}`}
                                 >
-                                  <div className="country-tab" dir={[__("dir")]}>
-                                    <span>
-                                    {country_name}
-                                    </span>
+                                  <div
+                                    className="country-tab"
+                                    dir={[__("dir")]}
+                                  >
+                                    <span>{country_name}</span>
                                     <Flag
                                       name={Country.iso}
                                       format="png"
@@ -118,7 +124,7 @@ class Layout extends React.Component {
                                   span={24}
                                   className="bshadow header"
                                 >
-                                    <DefaultStatistics/>
+                                  <DefaultStatistics />
                                 </Col>
                                 <Col
                                   className="bshadow"
@@ -132,8 +138,7 @@ class Layout extends React.Component {
                                 >
                                   <Row>
                                     <Col span={24} className="bshadow">
-                                   
-                                   <LineChart/>
+                                      <LineChart />
                                     </Col>
 
                                     <Col
@@ -141,8 +146,7 @@ class Layout extends React.Component {
                                       style={{ marginTop: 10 }}
                                       className="bshadow"
                                     >
-                                               
-                                            <PercentChart/>                            
+                                      <PercentChart />
                                     </Col>
                                   </Row>
                                 </Col>
@@ -158,7 +162,7 @@ class Layout extends React.Component {
                                 >
                                   <Row>
                                     <Col span={24} className="bshadow">
-                                                      <DaysCollapseChart/>
+                                      <DaysCollapseChart />
                                     </Col>
 
                                     <Col
@@ -166,8 +170,7 @@ class Layout extends React.Component {
                                       style={{ marginTop: 10 }}
                                       className="bshadow"
                                     >
-                                    
-                                   <LiquidChart/>
+                                      <LiquidChart />
                                     </Col>
                                   </Row>
                                 </Col>
@@ -188,5 +191,4 @@ class Layout extends React.Component {
   }
 }
 
-
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Layout));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout));

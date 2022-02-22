@@ -15,11 +15,10 @@ import * as Countries from "../countries.json";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import ar from "javascript-time-ago/locale/ar";
-TimeAgo.addLocale(en)
+TimeAgo.addLocale(en);
 TimeAgo.addLocale(ar);
 
 const { mapboxApiAccessToken } = store.getState().MapConfig;
-
 
 const defaultViewPort = {
   latitude: 26.96,
