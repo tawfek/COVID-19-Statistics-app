@@ -109,14 +109,6 @@ export const getCountry = (CountryIsoOrName) => {
   return Country;
 };
 
-export const GetToday = () => {
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, "0");
-  var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-  var yyyy = today.getFullYear();
-  return `${yyyy}-${mm}-${dd}`;
-};
-
 export const GetDays = (d, Mention_today = false) => {
   var DateArray = [];
   var days = d;
