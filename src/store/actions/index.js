@@ -11,7 +11,8 @@ import {
   SET_VIEWPORT,
   SET_MAP_LOADED, 
   SET_FETCHED_DATA,
-  SET_CURRENT_COUNTRY_DATA
+  SET_CURRENT_COUNTRY_DATA,
+  SET_COUNTRY_STATISTICS,SET_CURRENT_COUNTRY_STATISTICS
 } from "../constants/action-types";
 
 export function setLanguage(payload) {
@@ -62,4 +63,10 @@ export function setFetchedData(payload) {
   return { type: SET_FETCHED_DATA, payload }
 }
 
- 
+
+  export function setCountryStatistics(payload) {
+    return {type : SET_COUNTRY_STATISTICS, payload}
+  }
+  export function setCurrentCountryStatistics(payload) {
+      return {type: SET_CURRENT_COUNTRY_STATISTICS, payload}
+  }

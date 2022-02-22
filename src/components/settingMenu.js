@@ -4,7 +4,7 @@ import { setDarkMode, setLanguage } from "../store/actions";
 import { Menu, Switch, Radio } from "antd";
 import { Languages } from "../localization/languages";
 
-import i18n from "../localization/i18n"
+import i18n from "../localization/i18n";
 function mapStateToProps(state) {
   return { user: state.user, country: state.country };
 }
@@ -52,14 +52,11 @@ const SunIcon = (
   </svg>
 );
 
- 
-
 const settings = ({ user, setLanguage, setDarkMode }) => {
-
-  const changeLanguage = (language_key)=>{
-    setLanguage(language_key) ; 
+  const changeLanguage = (language_key) => {
+    setLanguage(language_key);
     i18n.changeLanguage(language_key);
-  }
+  };
 
   return (
     <Menu>
@@ -73,7 +70,9 @@ const settings = ({ user, setLanguage, setDarkMode }) => {
             return (
               <Radio.Button
                 key={language.key}
-                onClick={() => {changeLanguage(language.key)}}
+                onClick={() => {
+                  changeLanguage(language.key);
+                }}
                 value={language.key}
               >
                 {language.name}

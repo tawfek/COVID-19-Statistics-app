@@ -12,7 +12,9 @@ import {
   SET_VIEWPORT,
   SET_MAP_LOADED,
   SET_FETCHED_DATA,
-  SET_CURRENT_COUNTRY_DATA
+  SET_CURRENT_COUNTRY_DATA,
+  SET_COUNTRY_STATISTICS,
+  SET_CURRENT_COUNTRY_STATISTICS
 } from "../constants/action-types";
 
 
@@ -29,7 +31,9 @@ const initialState = {
   country: {
     currentKey:   "BH",
     currentCountry: "Bahrain",
-    currentCountryData: null
+    currentCountryData: null,
+    currentCountryStatistics:null,
+    currentCordinates : {latitude:0,longitude:0}
   },
   page: {
     title: "page small title | page title",
@@ -38,6 +42,7 @@ const initialState = {
   data: {
     status_data: [],
     final_seriess: [],
+    countriesStatistics: [],
     fetchedData: {
       isLoaded: false,
       data: [],
@@ -126,6 +131,14 @@ function rootReducer(state = initialState, action) {
           final_seriess: action.payload,
         }),
       });
+    case SET_COUNTRY_STATISTICS:
+      return Object.assign({}, state, {
+        ...state,
+        data: Object.assign({}, state.data, {
+          ...state.data,
+          countriesStatistics: action.payload,
+        }),
+      });
     case SET_LAT:
       return Object.assign({}, state, {
         ...state,
@@ -186,6 +199,15 @@ function rootReducer(state = initialState, action) {
           
             }),
           });
+          case SET_CURRENT_COUNTRY_STATISTICS:
+            return Object.assign({}, state, {
+              ...state,
+              country: Object.assign({}, state.country, {
+                ...state.country,
+                currentCountryStatistics: action.payload,
+            
+              }),
+            });
     default:
       return state;
   }
