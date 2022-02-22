@@ -3,6 +3,12 @@ import Chart from "react-apexcharts";
 import __ from "../../localization/tr";
 import { connect } from "react-redux";
 import { GetOneKey } from "../helpers";
+import { LoadingSkeleton } from "../Loading";
+import {Typography,} from "antd";
+import {
+  PercentageOutlined,
+} from "@ant-design/icons";
+const { Title } = Typography;
 
 function mapStateToProps(state) {
   return {
@@ -75,16 +81,27 @@ class PercentChart extends React.Component {
       ];
 
       return (
+        <>
+        <span
+        style={{ textAlign: __("text-align") }}
+        >
+        <Title level={2}>
+          <PercentageOutlined />{" "}
+          {__("percent-title")}
+        </Title>
+        <p>{__("percent-info")}</p>
+      </span>  
         <Chart
           key={2}
           options={options}
           series={series}
           type="bar"
           height={300}
-        />
+          />
+          </>
       );
     } else {
-      return "Loading...";
+      return (<LoadingSkeleton/>);
     }
   }
 }

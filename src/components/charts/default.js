@@ -3,15 +3,19 @@ import __ from "../../localization/tr";
 import { Row, Col, Badge, Statistic } from "antd";
 import Chart from "react-apexcharts";
 import { connect } from "react-redux";
-import { ReactTimeago } from "../helpers";
+import ReactTimeAgo from 'react-time-ago'
 
 import { TeamOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import { LoadingSkeleton } from "../Loading";
+import {Typography,} from "antd";
+const { Title } = Typography;
 
 function mapStateToProps(state) {
   return {
     user: state.user,
     data: state.data,
     country: state.country,
+    page: state.page
   };
 }
 
@@ -20,7 +24,7 @@ class DefaultStatistics extends React.Component {
   render() {
     let { data, country } = this.props;
     let { fetchedData } = data;
-    let { currentCountryData } = country;
+    let { currentCountryData ,currentCountry,currentKey} = country;
     let { isLoaded } = fetchedData;
     const pieOptions = {
       chart: {
@@ -41,11 +45,24 @@ class DefaultStatistics extends React.Component {
         cases.active || 0,
       ];
       return (
+        <>
+        <div className="header-info">
+        <Title>
+          {__("header title")}{" "}
+          {__(currentCountry)}
+          <img
+            className="flag-popover"
+            alt={__(currentCountry)}
+            src={`../flags-iso/flat/24/${currentKey}.png`}
+          />{" "}
+        </Title>
+        <p>{this.props.page.description}</p>
+      </div>
         <Row key={0}>
           <Col span={24}>
             <p>
               <ClockCircleOutlined /> {__("last update")}{" "}
-              {ReactTimeago(new Date(time))}
+              <ReactTimeAgo date={Date.parse(time)} locale={this.props.user.language} />
             </p>
           </Col>
           <Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={4}>
@@ -213,9 +230,11 @@ class DefaultStatistics extends React.Component {
             </Row>
           </Col>
         </Row>
+        </>
+
       );
     } else {
-      return "Loading...";
+      return (<LoadingSkeleton/>);
     }
   }
 }

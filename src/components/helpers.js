@@ -1,22 +1,25 @@
 import store from "../store";
 import { FlyToInterpolator } from "react-map-gl";
+import __ from "../localization/tr";
+
 import {
   setViewport,
   setCurrentCountry,
   setCurrentCountryData,
   setCurrentCountryStatistics,
+  setPageTitle,
+  setPageDescription,
 } from "../store/actions";
 import * as d3 from "d3-ease";
 import * as Countries from "../countries.json";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import ar from "javascript-time-ago/locale/ar";
-TimeAgo.addLocale(en);
+TimeAgo.addLocale(en)
 TimeAgo.addLocale(ar);
 
-const { MapConfig, user } = store.getState();
-const { mapboxApiAccessToken } = MapConfig;
-const { language } = user;
+const { mapboxApiAccessToken } = store.getState().MapConfig;
+
 
 const defaultViewPort = {
   latitude: 26.96,
@@ -60,8 +63,22 @@ export const setCountry = (CountryIsoOrName) => {
     let currentCountry7DaysData = countriesStatistics.find(function (country) {
       return country.name.indexOf(Country.currentCountry) !== -1;
     });
-    store.dispatch(setCurrentCountryStatistics(currentCountry7DaysData));
 
+    store.dispatch(setCurrentCountryStatistics(currentCountry7DaysData));
+    store.dispatch(
+      setPageTitle(
+        `${__(Country.currentCountry)} | ${__("header title")} ${__(
+          Country.currentCountry
+        )} `
+      )
+    );
+    store.dispatch(
+      setPageDescription(
+        `${__("header info")} ${__(Country.currentCountry)} ${__(
+          "with charts"
+        )}`
+      )
+    );
     if (isLoaded) {
       let CountryData = fetchedDataData.find(function (country) {
         return country.country.indexOf(Country.currentCountry) !== -1;
@@ -73,6 +90,12 @@ export const setCountry = (CountryIsoOrName) => {
 
     return Country;
   }
+};
+
+export const refreshCurrentCountry = () => {
+  let { country } = store.getState();
+  let { currentKey } = country;
+  setCountry(currentKey);
 };
 
 export const getCountry = (CountryIsoOrName) => {
@@ -87,10 +110,6 @@ export const getCountry = (CountryIsoOrName) => {
   return Country;
 };
 
-export const ReactTimeago = (date) => {
-  const timeAgo = new TimeAgo(language);
-  return timeAgo.format(date);
-};
 export const GetToday = () => {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");

@@ -5,14 +5,15 @@ import {
   SET_PAGE_TITLE,
   SET_PAGE_DESCRIPTION,
   SET_STATUS_DATA,
-  SET_LAT, 
-  SET_LONG, 
+  SET_LAT,
+  SET_LONG,
   SET_ZOOM,
   SET_VIEWPORT,
-  SET_MAP_LOADED, 
+  SET_MAP_LOADED,
   SET_FETCHED_DATA,
   SET_CURRENT_COUNTRY_DATA,
-  SET_COUNTRY_STATISTICS,SET_CURRENT_COUNTRY_STATISTICS
+  SET_COUNTRY_STATISTICS,
+  SET_CURRENT_COUNTRY_STATISTICS,
 } from "../constants/action-types";
 
 export function setLanguage(payload) {
@@ -27,46 +28,44 @@ export function setCurrentCountry(payload) {
   return { type: SET_CURRENT_COUNTRY, payload };
 }
 export function setCurrentCountryData(payload) {
-  return {type: SET_CURRENT_COUNTRY_DATA, payload}
+  return { type: SET_CURRENT_COUNTRY_DATA, payload };
 }
-export function setPageTitle(payload){
-    return { type:SET_PAGE_TITLE, payload}
+export function setPageTitle(payload) {
+  return { type: SET_PAGE_TITLE, payload };
 }
 export function setPageDescription(payload) {
-    return { type:SET_PAGE_DESCRIPTION, payload}
+  return { type: SET_PAGE_DESCRIPTION, payload };
 }
 export function setStatusData(payload) {
-  return { type:SET_STATUS_DATA, payload };
+  return { type: SET_STATUS_DATA, payload };
 }
 
-export function setLat(payload){
-  return { type:SET_LAT, payload}
+export function setLat(payload) {
+  return { type: SET_LAT, payload };
 }
-export function setLong(payload){
-  return { type:SET_LONG, payload}
+export function setLong(payload) {
+  return { type: SET_LONG, payload };
 }
 
-export function setZoom(payload){
-  return { type:SET_ZOOM, payload}
+export function setZoom(payload) {
+  return { type: SET_ZOOM, payload };
 }
 
 export function setViewport(payload) {
-  return { type:SET_VIEWPORT, payload}
+  return { type: SET_VIEWPORT, payload };
 }
 
-
 export function setMapLoaded(payload) {
-  return { type: SET_MAP_LOADED, payload }
+  return { type: SET_MAP_LOADED, payload };
 }
 
 export function setFetchedData(payload) {
-  return { type: SET_FETCHED_DATA, payload }
+  return { type: SET_FETCHED_DATA, payload };
 }
 
-
-  export function setCountryStatistics(payload) {
-    return {type : SET_COUNTRY_STATISTICS, payload}
-  }
-  export function setCurrentCountryStatistics(payload) {
-      return {type: SET_CURRENT_COUNTRY_STATISTICS, payload}
-  }
+export function setCountryStatistics(payload) {
+  return { type: SET_COUNTRY_STATISTICS, payload };
+}
+export function setCurrentCountryStatistics(payload) {
+  return { type: SET_CURRENT_COUNTRY_STATISTICS, payload };
+}

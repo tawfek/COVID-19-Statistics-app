@@ -16,6 +16,7 @@ import {
   HistoryOutlined,
   ClockCircleOutlined,
 } from "@ant-design/icons";
+import { LoadingSkeleton } from "../Loading";
 const { Panel } = Collapse;
 const { Title } = Typography;
 
@@ -280,7 +281,7 @@ class DaysCollapseChart extends React.Component {
         </Row>
       );
     } else {
-      return "Loading...";
+      return (<LoadingSkeleton />);
     }
   }
 }

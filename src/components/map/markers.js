@@ -5,8 +5,9 @@ import Flag from "react-flags";
 import __ from "../../localization/tr";
 import { connect } from "react-redux";
 import * as countries from "../../countries.json";
-import { FlyMe, ReactTimeago } from "../helpers";
+import { FlyMe } from "../helpers";
 import MarkerPopover from "./markerPopover";
+import ReactTimeAgo from 'react-time-ago'
 
 function mapStateToProps(state) {
   return {
@@ -34,7 +35,7 @@ class Markers extends React.Component {
             currentCountryData.time !== undefined ? (
               <Tooltip title={currentCountryData.time}>
                 {" - " + __("last update") + " "}
-                {ReactTimeago(new Date(currentCountryData.time))}
+                <ReactTimeAgo date={Date.parse(currentCountryData.time)} locale={user.language}/>
               </Tooltip>
             ) : (
               ""

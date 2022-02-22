@@ -3,7 +3,14 @@ import __ from "../../localization/tr";
 import { connect } from "react-redux";
 import { GetOneKey } from "../helpers";
 import { Liquid } from "@antv/g2plot";
+
 import ReactG2Plot from "react-g2plot";
+import { LoadingSkeleton } from "../Loading";
+import {Typography,} from "antd";
+import {
+  TrophyOutlined,
+} from "@ant-design/icons";
+const { Title } = Typography;
 
 function mapStateToProps(state) {
   return {
@@ -35,6 +42,16 @@ class LiquidChart extends React.Component {
         },
       };
       return (
+        <>
+        <span
+        style={{ textAlign: __("text-align") }}
+      >
+        <Title level={2}>
+          {" "}
+          <TrophyOutlined /> {__("cure")}
+        </Title>
+        <p>{__("cure desc")}</p>
+      </span>
         <ReactG2Plot
           key={1}
           dir={__("dir")}
@@ -42,9 +59,11 @@ class LiquidChart extends React.Component {
           Ctor={Liquid}
           config={liquidconfig}
         />
+        </>
+
       );
     } else {
-      return "Loading...";
+      return (<LoadingSkeleton/>);
     }
   }
 }

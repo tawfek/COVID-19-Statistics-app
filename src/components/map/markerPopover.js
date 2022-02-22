@@ -3,6 +3,7 @@ import { Row, Col, Statistic, Badge } from "antd";
 import __ from "../../localization/tr";
 import { connect } from "react-redux";
 import { TeamOutlined } from "@ant-design/icons";
+import { LoadingSkeleton } from "../Loading";
 
 function mapStateToProps(state) {
   return {
@@ -172,7 +173,7 @@ class MarkerPopover extends React.Component {
         </Row>
       );
     } else {
-      return "Loading";
+      return (<LoadingSkeleton/>);
     }
   }
 }
