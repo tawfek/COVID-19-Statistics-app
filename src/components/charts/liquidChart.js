@@ -12,7 +12,7 @@ const { Title } = Typography;
 
 function mapStateToProps(state) {
   return {
-    country: state.country,
+    country: state.root.country,
   };
 }
 

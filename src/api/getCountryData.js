@@ -21,17 +21,18 @@ const GetCountriesData = () => {
             });
           }
         });
-        dispatch(
-          setFetchedData({
-            data: fullData,
-            isLoaded: true,
-          })
-        );
+    
       } catch (error) {
         console.error(error);
         message.error(__("unexpected-error"));
       }
     });
+    dispatch(
+      setFetchedData({
+        data: fullData,
+        isLoaded: true,
+      })
+    );
   };
 };
 

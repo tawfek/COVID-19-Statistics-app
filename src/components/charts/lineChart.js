@@ -9,10 +9,10 @@ import { AreaChartOutlined } from "@ant-design/icons";
 const { Title } = Typography;
 function mapStateToProps(state) {
   return {
-    user: state.user,
-    country: state.country,
-    page: state.page,
-    data: state.data,
+    user: state.root.user,
+    country: state.root.country,
+    page: state.root.page,
+    data: state.root.data,
   };
 }
 

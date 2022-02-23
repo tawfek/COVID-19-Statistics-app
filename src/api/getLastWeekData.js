@@ -19,7 +19,7 @@ const getLastWeekData = (days = 7, includeToday = true) => {
       return true;
     });
 
-    Dates.map(async (date) => {
+    Dates.map(async (date,key) => {
       await axios
         .get(`${ENDPOINT}?d=${date}`)
         .then(async (response) => {
@@ -41,11 +41,10 @@ const getLastWeekData = (days = 7, includeToday = true) => {
                   return true;
                 });
               }
-              dispatch(setCountryStatistics(countries));
+     
 
               return true;
             });
-            refreshCurrentCountry();
           } catch (error) {
             console.log(error);
             message.error(__("unexpected-error"));
@@ -54,11 +53,16 @@ const getLastWeekData = (days = 7, includeToday = true) => {
 
         .catch((error) => {
           console.log(error);
-
           message.error(__("unexpected-error"));
         });
-      return "";
-    });
+
+      if((key) ===Dates.length-1){
+        dispatch(setCountryStatistics(countries));
+        refreshCurrentCountry();
+
+      }
+        return "";
+      });
   };
 };
 

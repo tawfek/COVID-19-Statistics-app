@@ -11,10 +11,10 @@ import ReactTimeAgo from "react-time-ago";
 
 function mapStateToProps(state) {
   return {
-    user: state.user,
-    country: state.country,
-    MapConfig: state.MapConfig,
-    data: state.data,
+    user: state.root.user,
+    country: state.root.country,
+    MapConfig: state.root.MapConfig,
+    data: state.root.data,
   };
 }
 

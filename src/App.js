@@ -3,11 +3,22 @@ import "./styles/App.css";
 import { withTranslation } from "react-i18next";
 import tr from "./localization/tr";
 import AppPage from "./pages/AppPage";
+import PropTypes from 'prop-types'
+import { ConnectedRouter } from 'connected-react-router'
+import {history} from './store'
 
-const App = ({ t }) => (
+const App = () => {
+ 
+  return (
+    <ConnectedRouter history={history}>
   <div dir={tr("dir")}>
-    <AppPage />
+   <AppPage />
   </div>
-);
+  </ConnectedRouter>
+    )
+  };
+  App.propTypes = {
+    history: PropTypes.object,
+  }
 
 export default withTranslation()(App);

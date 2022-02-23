@@ -12,6 +12,7 @@ export const Arabic = {
             "Deaths": "المتوفيين",
             "New": "حالات جديدة",
             "Critical Cases": "الحالات الخطرة",
+            "Critical cases": "الحالات الخطرة",
             "last update": "اخر تحديث ",
             "Settings": "الاعدادات",
             'Cure': 'نسبة التعافي ',
@@ -32,7 +33,26 @@ export const Arabic = {
             "page full title": " اخر احصائيات المصابين والمتعافيين والموتى لفايروس كورونا COVID-19 لدول الشرق الاوسط ",
             "page title": "اخر احصائيات المصابين بفايروس كورونا لدول الشرق الاوسط",
             "made with": "عٌمل بـ",
-            "by": "بواسطة "
+            "by": "بواسطة ",
+            "Iraq":"العراق",
+            "Bahrain":"البحرين",
+            "Iran":"ايران",
+            "Egypt":"مصر",
+            "Cyprus":"قبرص",
+            "Israel":"اسرائيل",
+            "Jordan":"الأردن",
+            "Kuwait":"الكويت",
+            "Lebanon":"لبنان",
+            "Oman":"عمان",
+            "Palestine":"فلسطين",
+            "Qatar":"قطر",
+            "Saudi-Arabia":"السعودية",
+            "Syria":"سوريا",
+            "Turkey":"تركيا",
+            "UAE":"الأمارات",
+            "Yemen":"اليمن",
+            "United Arab Emirates":"الأمارات",
+            "Saudi Arabia":"السعودية"
         }
     }
 };

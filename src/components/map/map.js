@@ -19,10 +19,10 @@ setRTLTextPlugin(
 
 function mapStateToProps(state) {
   return {
-    user: state.user,
-    country: state.country,
-    MapConfig: state.MapConfig,
-    data: state.data,
+    user: state.root.user,
+    country: state.root.country,
+    MapConfig: state.root.MapConfig,
+    data: state.root.data,
   };
 }
 
@@ -38,8 +38,8 @@ class Map extends React.Component {
     super(props);
     this.mapRef = null;
     store.subscribe(() => {
-      let language = store.getState().user.language;
-      if (this.mapRef !== null && store.getState().MapConfig.loaded) {
+      let language = store.getState().root.user.language;
+      if (this.mapRef !== null && store.getState().root.MapConfig.loaded) {
         if (language === "ar") {
           this.mapRef
             .getMap()

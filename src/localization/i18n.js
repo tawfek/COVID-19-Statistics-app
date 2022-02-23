@@ -8,7 +8,7 @@ const resources = Object.assign({}, Arabic, English);
 let lng = "en";
 
 store.subscribe(() => {
-  lng = store.getState().user.language;
+  lng = store.getState().root.user.language;
 });
 
 i18n

@@ -1,18 +1,46 @@
 import React from "react";
 import Map from "../components/map/map";
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Switch, withRouter,matchPath } from "react-router-dom";
 import { HeartFilled } from "@ant-design/icons";
 import { Row, Col } from "antd";
-import Layout from "../layout";
+import Home from "./home";
 import __ from "../localization/tr";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
+import {  setLanguage } from "../store/actions";
+import {history} from "../store"
+import { ConnectedRouter } from 'connected-react-router'
+import { setCountry } from "../components/helpers";
 
-function mapStateToProps(state) {
-  return { user: state.user, country: state.country, page: state.page };
-}
+
+  function mapStateToProps(state) {
+    return { user: state.root.user, country: state.root.country, page: state.root.page ,location:state.router.location,  pathname: state.router.location.pathname,
+    };
+  }
+  function mapDispatchToProps(dispatch) {
+    return { 
+      setLanguage: (language) => dispatch(setLanguage(language)),
+  
+    }
+  }
 
 class AppPage extends React.Component {
+  componentDidUpdate(prevProps) {
+
+    const locationChanged =
+       this.props.location !== prevProps.location;
+     if(locationChanged){
+       const {params} = matchPath(this.props.pathname,{ path: '/:lng/:country' });
+       if(this.props.country.currentCountry !== params){
+         setCountry(params.country) 
+       }
+       if(this.props.user.language!==params.lng){
+         this.props.setLanguage(params.lng)
+       }
+     }
+  
+   }
+
   render() {
     if (this.props.user.darkMode) {
       document.body.classList.add("dark-theme");
@@ -20,7 +48,7 @@ class AppPage extends React.Component {
       document.body.classList.remove("dark-theme");
     }
     return (
-      <div>
+      <ConnectedRouter  history={history}>
         <Helmet>
           <title>{this.props.page.title}</title>
           <meta name="description" content={this.props.page.description} />
@@ -54,7 +82,7 @@ class AppPage extends React.Component {
               <Col md={24} sm={24} className="content-1">
                 <Router>
                   <Switch>
-                    <Layout />
+                    <Home history={this.props.history}/>
                   </Switch>{" "}
                 </Router>
               </Col>
@@ -88,9 +116,9 @@ class AppPage extends React.Component {
             </Row>
           </Col>
         </Row>
-      </div>
+      </ConnectedRouter>
     );
   }
 }
 
-export default connect(mapStateToProps)(AppPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppPage))

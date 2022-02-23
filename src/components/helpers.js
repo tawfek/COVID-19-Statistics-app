@@ -1,7 +1,6 @@
 import store from "../store";
 import { FlyToInterpolator } from "react-map-gl";
 import __ from "../localization/tr";
-
 import {
   setViewport,
   setCurrentCountry,
@@ -18,8 +17,6 @@ import ar from "javascript-time-ago/locale/ar";
 TimeAgo.addLocale(en);
 TimeAgo.addLocale(ar);
 
-const { mapboxApiAccessToken } = store.getState().MapConfig;
-
 const defaultViewPort = {
   latitude: 26.96,
   longitude: 50.06,
@@ -33,6 +30,7 @@ export const FlyMe = (
   iso = {},
   reload = true
 ) => {
+  const { mapboxApiAccessToken } = store.getState().root.MapConfig;
   const FlyTo = {
     latitude: Number(lat),
     longitude: Number(lng),
@@ -52,7 +50,7 @@ export const FlyMe = (
 };
 
 export const setCountry = (CountryIsoOrName) => {
-  let { data } = store.getState();
+  let { data } = store.getState().root;
   let { isLoaded } = data.fetchedData;
   let fetchedDataData = data.fetchedData.data;
   if (CountryIsoOrName !== null) {
@@ -60,6 +58,7 @@ export const setCountry = (CountryIsoOrName) => {
     store.dispatch(setCurrentCountry(Country));
     let { countriesStatistics } = data;
     let currentCountry7DaysData = countriesStatistics.find(function (country) {
+   
       return country.name.indexOf(Country.currentCountry) !== -1;
     });
 
@@ -92,20 +91,23 @@ export const setCountry = (CountryIsoOrName) => {
 };
 
 export const refreshCurrentCountry = () => {
-  let { country } = store.getState();
+  let { country } = store.getState().root;
   let { currentKey } = country;
   setCountry(currentKey);
 };
 
 export const getCountry = (CountryIsoOrName) => {
+  let Country = {currentKey: "BH", currentCountry:"Bahrain"}
   let getCurrentCountry = Countries.countries.find(function (country) {
     return (
       country.country.iso.indexOf(CountryIsoOrName) !== -1 ||
       country.country.name.indexOf(CountryIsoOrName) !== -1
     );
   });
-  let { search, iso } = getCurrentCountry.country;
-  let Country = { currentKey: iso, currentCountry: search };
+  if(getCurrentCountry!== undefined){
+    let { search, iso } = getCurrentCountry.country;
+     Country = { currentKey: iso, currentCountry: search };
+  }
   return Country;
 };
 
