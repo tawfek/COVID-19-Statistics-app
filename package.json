@@ -88,6 +88,6 @@
     "less-loader": "^5.0.0",
     "react-app-rewired": "^2.1.5",
     "sass": "^1.49.8",
-    "terser-brunch": "^4.0.0"
+    "terser-brunch": "^4.1.0"
   }
 }
