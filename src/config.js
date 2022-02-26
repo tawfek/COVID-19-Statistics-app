@@ -1,0 +1,12 @@
+export const ENDPOINT = process.env.REACT_APP_ENDPOINT;
+export const IPINFO_DOT_IO_TOKEN = process.env.REACT_APP_IPINFO_DOT_IO_TOKEN ;
+export const MAPBPX_MAPSTYLE_DARK = process.env.REACT_APP_MAPBPX_MAPSTYLE_DARK 
+export const MAPBPX_MAPSTYLE_LIGHT = process.env.REACT_APP_MAPBPX_MAPSTYLE_LIGHT 
+export const MAPBOX_API_ACCESS_TOKEN = process.env.REACT_APP_MAPBOX_API_ACCESS_TOKEN 
+export const DEFAULT_LANGUAGE_KEY = process.env.REACT_APP_DEFAULT_LANGUAGE_KEY || "en" ;
+export const DEFAULT_COUNTRY = process.env.REACT_APP_DEFAULT_COUNTRY || "Bahrain"
+export const DEFAULT_DARKMODE = process.env.REACT_APP_DEFAULT_DARKMODE || true
+export const APP_WEBSITE_NAME = process.env.REACT_APP_APP_WEBSITE_NAME || "COVID-19 MiddleEast Statistics"
+export const WEBSITE_TITLE = process.env.REACT_APP_WEBSITE_TITLE || `${APP_WEBSITE_NAME} | The latest statistics for infected people with coronavirus in Middle East `
+export const WEBSITE_DESCRIPTION = process.env.REACT_APP_WEBSITE_DESCRIPTION || "The latest statistics of the infected, recovered and dead from COVID-19 Coronavirus in Middle East  with charts and world map."
+export const GOOGLE_ANALYTICS_ID = process.env.REACT_APP_APP || "UA-165375572-1"

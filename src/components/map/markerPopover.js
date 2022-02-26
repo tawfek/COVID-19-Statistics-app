@@ -38,7 +38,7 @@ class MarkerPopover extends React.Component {
             <Statistic
               title={__("active cases")}
               value={cases.active}
-              prefix={<Icon shape="activeCases"/>}
+              prefix={<Icon shape="activeCases" />}
             />
           </Col>
           <Col sm={24} md={12}>
@@ -46,7 +46,7 @@ class MarkerPopover extends React.Component {
               title={__("Recovered Cases")}
               valueStyle={{ color: "#3f8600" }}
               value={cases.recovered}
-              prefix={<Icon shape="recovered"/>}
+              prefix={<Icon shape="recovered" />}
             />
           </Col>
           <Col sm={24} md={12}>
@@ -54,7 +54,7 @@ class MarkerPopover extends React.Component {
               title={__("Tests")}
               valueStyle={{ color: "#3f8600" }}
               value={tests.total || 0}
-              prefix={<Icon shape="tests"/>}
+              prefix={<Icon shape="tests" />}
             />
           </Col>
           <Col sm={24} md={12}>
@@ -62,7 +62,7 @@ class MarkerPopover extends React.Component {
               title={__("Critical Cases")}
               valueStyle={{ color: "#cf1322" }}
               value={cases.critical || 0}
-              prefix={<Icon shape="critical"/>}
+              prefix={<Icon shape="critical" />}
             />
           </Col>
           <Col sm={24} md={12}>
@@ -73,7 +73,7 @@ class MarkerPopover extends React.Component {
                 <Badge count={(deaths.new || 0) + " " + __("New")}></Badge>
               }
               value={deaths.total || 0}
-              prefix={<Icon shape="deaths"/> }
+              prefix={<Icon shape="deaths" />}
             />
           </Col>
         </Row>

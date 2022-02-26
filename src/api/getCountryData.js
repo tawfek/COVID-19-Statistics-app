@@ -1,7 +1,7 @@
 import { message } from "antd";
 import __ from "../localization/tr";
 import { setFetchedData } from "../store/actions";
-import { ENDPOINT } from "./endpoint";
+import { ENDPOINT } from "../config";
 import * as Countries from "../countries.json";
 import axios from "axios";
 
@@ -21,7 +21,6 @@ const GetCountriesData = () => {
             });
           }
         });
-    
       } catch (error) {
         console.error(error);
         message.error(__("unexpected-error"));

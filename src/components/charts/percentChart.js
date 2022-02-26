@@ -4,15 +4,12 @@ import __ from "../../localization/tr";
 import { connect } from "react-redux";
 import { GetOneKey } from "../helpers";
 import { LoadingSkeleton } from "../Loading";
-import { Typography } from "antd";
 import { PercentageOutlined } from "@ant-design/icons";
-const { Title } = Typography;
+import { ChartTitle } from "./ChartTitle";
 
 function mapStateToProps(state) {
   return {
-    user: state.root.user,
     country: state.root.country,
-    page: state.root.page,
     data: state.root.data,
   };
 }
@@ -21,6 +18,13 @@ class PercentChart extends React.Component {
   render() {
     let { country } = this.props;
     let { currentCountryStatistics } = country;
+    const Header = (
+      <ChartTitle
+        title={__("percent-title")}
+        prefix={<PercentageOutlined />}
+        description={__("percent-info")}
+      />
+    );
     if (
       currentCountryStatistics !== null &&
       currentCountryStatistics !== undefined
@@ -76,12 +80,7 @@ class PercentChart extends React.Component {
 
       return (
         <>
-          <span style={{ textAlign: __("text-align") }}>
-            <Title level={2}>
-              <PercentageOutlined /> {__("percent-title")}
-            </Title>
-            <p>{__("percent-info")}</p>
-          </span>
+          {Header}
           <Chart
             key={2}
             options={options}
@@ -92,7 +91,12 @@ class PercentChart extends React.Component {
         </>
       );
     } else {
-      return <LoadingSkeleton />;
+      return (
+        <>
+          {Header}
+          <LoadingSkeleton />
+        </>
+      );
     }
   }
 }

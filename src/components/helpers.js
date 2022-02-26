@@ -8,14 +8,16 @@ import {
   setCurrentCountryStatistics,
   setPageTitle,
   setPageDescription,
+  setLanguage,
 } from "../store/actions";
+import { Languages } from "../localization/languages";
+import detectCountry from "../api/detectCountry";
 import * as d3 from "d3-ease";
 import * as Countries from "../countries.json";
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en";
-import ar from "javascript-time-ago/locale/ar";
-TimeAgo.addLocale(en);
-TimeAgo.addLocale(ar);
+import i18n from "../localization/i18n";
+import { history } from "../store";
+import { matchPath } from "react-router-dom";
+import { DEFAULT_LANGUAGE_KEY } from "../config";
 
 const defaultViewPort = {
   latitude: 26.96,
@@ -49,6 +51,54 @@ export const FlyMe = (
   }
 };
 
+export const RedirectToCountry = (country) => {
+  let { pathname } = history.location;
+  let { user } = store.getState().root;
+
+  let params = matchPath(pathname, {
+    path: "/:lng/:country",
+  });
+  if (params == null) {
+    detectCountry((country) => {
+      history.replace({ ...history, pathname: `${user.language}/${country}` });
+      setCountry(country);
+    });
+  } else {
+    params = params.params;
+    if (
+      params.country !== country &&
+      params.country !== null &&
+      params.country !== undefined
+    ) {
+      history.replace({ ...history, pathname: `/${user.language}/${country}` });
+    }
+    if (
+      params.lng !== user.language &&
+      params.lng !== null &&
+      params.lng !== undefined
+    ) {
+      history.replace({ ...history, pathname: `/${params.lng}/${country}` });
+      setLanguage(params.lng);
+    }
+  }
+};
+
+export const RedirectToLanguage = (language) => {
+  let { pathname } = history.location;
+  let { country } = store.getState().root;
+  let params = matchPath(pathname, {
+    path: "/:lng/:country",
+  });
+  if (params !== null) {
+    params = params.params;
+    history.replace({
+      ...history,
+      pathname: `/${language}/${country.currentCountry}`,
+    });
+    refreshCurrentCountry();
+  }
+};
+
 export const setCountry = (CountryIsoOrName) => {
   let { data } = store.getState().root;
   let { isLoaded } = data.fetchedData;
@@ -58,7 +108,6 @@ export const setCountry = (CountryIsoOrName) => {
     store.dispatch(setCurrentCountry(Country));
     let { countriesStatistics } = data;
     let currentCountry7DaysData = countriesStatistics.find(function (country) {
-   
       return country.name.indexOf(Country.currentCountry) !== -1;
     });
 
@@ -77,6 +126,7 @@ export const setCountry = (CountryIsoOrName) => {
         )}`
       )
     );
+    RedirectToCountry(Country.currentCountry);
     if (isLoaded) {
       let CountryData = fetchedDataData.find(function (country) {
         return country.country.indexOf(Country.currentCountry) !== -1;
@@ -97,16 +147,16 @@ export const refreshCurrentCountry = () => {
 };
 
 export const getCountry = (CountryIsoOrName) => {
-  let Country = {currentKey: "BH", currentCountry:"Bahrain"}
+  let Country = { currentKey: "BH", currentCountry: "Bahrain" };
   let getCurrentCountry = Countries.countries.find(function (country) {
     return (
       country.country.iso.indexOf(CountryIsoOrName) !== -1 ||
       country.country.name.indexOf(CountryIsoOrName) !== -1
     );
   });
-  if(getCurrentCountry!== undefined){
+  if (getCurrentCountry !== undefined) {
     let { search, iso } = getCurrentCountry.country;
-     Country = { currentKey: iso, currentCountry: search };
+    Country = { currentKey: iso, currentCountry: search };
   }
   return Country;
 };
@@ -137,4 +187,47 @@ export const GetDays = (d, Mention_today = false) => {
 };
 export const GetOneKey = (arrayOfObjects, key, asArray = false) => {
   return arrayOfObjects.map((object) => object[key] || 0);
+};
+
+export const changeLanguage = async (language_key) => {
+  if (CheckLanguageAvailability(language_key)) {
+    store.dispatch(setLanguage(language_key));
+    i18n.changeLanguage(language_key);
+    RedirectToLanguage(language_key);
+  } else {
+    RedirectToLanguage(DEFAULT_LANGUAGE_KEY);
+    store.dispatch(setLanguage(DEFAULT_LANGUAGE_KEY));
+    i18n.changeLanguage(DEFAULT_LANGUAGE_KEY);
+  }
+  refreshCurrentCountry();
+  return language_key;
+};
+
+export const CheckLanguageAvailability = (language_key) => {
+  let language = Languages.filter((language) => {
+    return language_key.toLowerCase() === language.key.toLowerCase();
+  });
+
+  return language.length > 0 ? true : false;
+};
+
+function isJson(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
+
+export const SaveToLocalStorage = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value));
+};
+export const LoadFromLoaclStorage = (key, defaultValue) => {
+  let Values = localStorage.getItem(key)
+    ? isJson(localStorage.getItem(key))
+      ? JSON.parse(localStorage.getItem(key))
+      : defaultValue
+    : defaultValue;
+  return Values;
 };

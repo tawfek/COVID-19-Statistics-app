@@ -2,7 +2,7 @@ import { message } from "antd";
 import { GetDays, refreshCurrentCountry } from "../components/helpers";
 import __ from "../localization/tr";
 import { setCountryStatistics } from "../store/actions";
-import { ENDPOINT } from "./endpoint";
+import { ENDPOINT } from "../config";
 import * as Countries from "../countries.json";
 import axios from "axios";
 
@@ -19,7 +19,7 @@ const getLastWeekData = (days = 7, includeToday = true) => {
       return true;
     });
 
-    Dates.map(async (date,key) => {
+    Dates.map(async (date, key) => {
       await axios
         .get(`${ENDPOINT}?d=${date}`)
         .then(async (response) => {
@@ -41,7 +41,6 @@ const getLastWeekData = (days = 7, includeToday = true) => {
                   return true;
                 });
               }
-     
 
               return true;
             });
@@ -56,13 +55,12 @@ const getLastWeekData = (days = 7, includeToday = true) => {
           message.error(__("unexpected-error"));
         });
 
-      if((key) ===Dates.length-1){
+      if (key === Dates.length - 1) {
         dispatch(setCountryStatistics(countries));
         refreshCurrentCountry();
-
       }
-        return "";
-      });
+      return "";
+    });
   };
 };
 

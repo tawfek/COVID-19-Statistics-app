@@ -7,13 +7,13 @@ import { connect } from "react-redux";
 import * as countries from "../../countries.json";
 import { FlyMe } from "../helpers";
 import MarkerPopover from "./markerPopover";
-import ReactTimeAgo from "react-time-ago";
+import TimeAgo from "react-timeago";
+import { Languages } from "../../localization/languages";
 
 function mapStateToProps(state) {
   return {
     user: state.root.user,
     country: state.root.country,
-    MapConfig: state.root.MapConfig,
     data: state.root.data,
   };
 }
@@ -25,23 +25,29 @@ class Markers extends React.Component {
     return (
       <React.Fragment>
         {countries.countries.map((country) => {
-          const { search, name, iso, coordinates, name_ar } = country.country;
+          const { search, name, iso, coordinates } = country.country;
           const { lng, lat } = coordinates;
-
-          const country_name_lan = user.language === "en" ? name : name_ar;
 
           let dataUpdatedTime =
             currentCountryData !== null &&
             currentCountryData.time !== undefined ? (
               <Tooltip title={currentCountryData.time}>
-                {" - " + __("last update") + " "}
-                <ReactTimeAgo
-                  date={Date.parse(currentCountryData.time)}
-                  locale={user.language}
-                />
+                {` - ${__("last update")} `}
+                {Languages.map((language) => {
+                  if (language.key === user.language) {
+                    return (
+                      <TimeAgo
+                        key={language.key}
+                        date={Date.parse(currentCountryData.time)}
+                        formatter={language.formater}
+                      />
+                    );
+                  }
+                  return "";
+                })}
               </Tooltip>
             ) : (
-              ""
+              <></>
             );
 
           return (
@@ -58,7 +64,7 @@ class Markers extends React.Component {
                       style={{ borderRadius: "10px" }}
                       className="flag-popover"
                     />
-                    {country_name_lan} {dataUpdatedTime}
+                    {__(name)} {dataUpdatedTime}
                   </span>
                 }
                 trigger="focus"

@@ -4,14 +4,13 @@ import __ from "../../localization/tr";
 import { connect } from "react-redux";
 import { GetOneKey } from "../helpers";
 import { LoadingSkeleton } from "../Loading";
-import { Typography } from "antd";
 import { AreaChartOutlined } from "@ant-design/icons";
-const { Title } = Typography;
+import { ChartTitle } from "./ChartTitle";
+import { Row, Col } from "antd";
+
 function mapStateToProps(state) {
   return {
-    user: state.root.user,
     country: state.root.country,
-    page: state.root.page,
     data: state.root.data,
   };
 }
@@ -20,6 +19,13 @@ class LineChart extends React.Component {
   render() {
     let { country } = this.props;
     let { currentCountryStatistics } = country;
+    const Header = (
+      <ChartTitle
+        title={__("chart-title")}
+        prefix={<AreaChartOutlined />}
+        description={__("chart-info")}
+      />
+    );
     if (
       currentCountryStatistics !== null &&
       currentCountryStatistics !== undefined
@@ -79,25 +85,28 @@ class LineChart extends React.Component {
       ];
 
       return (
-        <>
-          <span style={{ textAlign: __("text-align") }}>
-            <Title level={2}>
-              {" "}
-              <AreaChartOutlined /> {__("chart-title")}
-            </Title>
-            <p>{__("chart-info")}</p>
-          </span>
-          <Chart
-            key={2}
-            options={options}
-            series={series}
-            type="area"
-            height={300}
-          />
-        </>
+        <Row>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+            {Header}
+          </Col>
+          <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
+            <Chart
+              key={2}
+              options={options}
+              series={series}
+              type="area"
+              height={300}
+            />
+          </Col>
+        </Row>
       );
     } else {
-      return <LoadingSkeleton />;
+      return (
+        <>
+          {Header}
+          <LoadingSkeleton />;
+        </>
+      );
     }
   }
 }

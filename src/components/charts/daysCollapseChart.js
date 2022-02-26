@@ -3,22 +3,20 @@ import Chart from "react-apexcharts";
 import __ from "../../localization/tr";
 import { connect } from "react-redux";
 import { GetOneKey } from "../helpers";
-import { Row, Col, Collapse, Badge, Statistic, Typography } from "antd";
+import { Row, Col, Collapse, Badge, Statistic } from "antd";
 import {
   TeamOutlined,
   HistoryOutlined,
   ClockCircleOutlined,
 } from "@ant-design/icons";
 import { LoadingSkeleton } from "../Loading";
-import Icon from "../icon"
+import Icon from "../icon";
+import { ChartTitle } from "./ChartTitle";
 const { Panel } = Collapse;
-const { Title } = Typography;
 
 function mapStateToProps(state) {
   return {
-    user: state.root.user,
     country: state.root.country,
-    page: state.root.page,
     data: state.root.data,
   };
 }
@@ -27,6 +25,13 @@ class DaysCollapseChart extends React.Component {
   render() {
     let { country } = this.props;
     let { currentCountryStatistics } = country;
+    const Header = (
+      <ChartTitle
+        title={__("history-title")}
+        prefix={<HistoryOutlined />}
+        description={__("history-info")}
+      />
+    );
     if (
       currentCountryStatistics !== null &&
       currentCountryStatistics !== undefined
@@ -96,9 +101,7 @@ class DaysCollapseChart extends React.Component {
                 <Statistic
                   title={__("active cases")}
                   value={GetOneKey(cases, "active")[key]}
-                  prefix={
-                 <Icon shape="activeCases"/>
-                  }
+                  prefix={<Icon shape="activeCases" />}
                 />
               </Col>
               <Col xs={12} sm={24} md={24} lg={12} xl={12} xxl={12}>
@@ -108,7 +111,7 @@ class DaysCollapseChart extends React.Component {
                     color: "#3f8600",
                   }}
                   value={GetOneKey(cases, "recovered")[key]}
-                  prefix={ <Icon shape="recovered"/>}
+                  prefix={<Icon shape="recovered" />}
                 />
               </Col>
               <Col xs={12} sm={24} md={24} lg={12} xl={12} xxl={12}>
@@ -118,7 +121,7 @@ class DaysCollapseChart extends React.Component {
                     color: "#3f8600",
                   }}
                   value={GetOneKey(tests, "total")[key]}
-                  prefix={ <Icon shape="tests"/>}
+                  prefix={<Icon shape="tests" />}
                 />
               </Col>
               <Col xs={12} sm={24} md={24} lg={12} xl={12} xxl={12}>
@@ -128,7 +131,7 @@ class DaysCollapseChart extends React.Component {
                     color: "#cf1322",
                   }}
                   value={GetOneKey(cases, "critical")[key]}
-                  prefix={ <Icon shape="critical"/> }
+                  prefix={<Icon shape="critical" />}
                 />
               </Col>
               <Col xs={12} sm={24} md={24} lg={12} xl={12} xxl={12}>
@@ -144,7 +147,7 @@ class DaysCollapseChart extends React.Component {
                     ></Badge>
                   }
                   value={GetOneKey(deaths, "total")[key]}
-                  prefix={<Icon shape="deaths"/>}
+                  prefix={<Icon shape="deaths" />}
                 />
               </Col>
 
@@ -163,12 +166,7 @@ class DaysCollapseChart extends React.Component {
       return (
         <Row>
           <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
-            <span style={{ textAlign: __("text-align") }}>
-              <Title level={2}>
-                <HistoryOutlined /> {__("history-title")}
-              </Title>
-              <p>{__("history-info")}</p>
-            </span>
+            {Header}
           </Col>
           <Col xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
             <Collapse
@@ -182,7 +180,12 @@ class DaysCollapseChart extends React.Component {
         </Row>
       );
     } else {
-      return <LoadingSkeleton />;
+      return (
+        <>
+          {Header}
+          <LoadingSkeleton />;
+        </>
+      );
     }
   }
 }

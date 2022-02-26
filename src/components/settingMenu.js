@@ -1,27 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setDarkMode, setLanguage } from "../store/actions";
+import { setDarkMode } from "../store/actions";
 import { Menu, Switch, Radio } from "antd";
+import { SaveToLocalStorage } from "./helpers";
 import { Languages } from "../localization/languages";
-import i18n from "../localization/i18n";
 import Icon from "./icon";
+import { changeLanguage } from "./helpers";
 function mapStateToProps(state) {
-  return { user: state.root.user, country: state.root.country };
+  return { user: state.root.user };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    setLanguage: (language) => dispatch(setLanguage(language)),
     setDarkMode: (darkMode) => dispatch(setDarkMode(darkMode)),
   };
 }
 
-
-const settings = ({ user, setLanguage, setDarkMode }) => {
-  const changeLanguage = (language_key) => {
-    setLanguage(language_key);
-    i18n.changeLanguage(language_key);
-  };
-
+const settings = ({ user, setDarkMode }) => {
   return (
     <Menu className="setting-menu ">
       <Menu.Item key="0">
@@ -51,10 +45,13 @@ const settings = ({ user, setLanguage, setDarkMode }) => {
       <Menu.Item key="3">
         Dark Mode :{" "}
         <Switch
-          onChange={() => setDarkMode(!user.darkMode)}
-          defaultChecked={user.darkMode}
-          checkedChildren={<Icon shape="sun"/>}
-          unCheckedChildren={<Icon shape="moon"/>}
+          onChange={() => {
+            setDarkMode(!user.darkMode);
+            SaveToLocalStorage("darkMode", Boolean(!user.darkMode));
+          }}
+          defaultChecked={Boolean(user.darkMode)}
+          checkedChildren={<Icon shape="sun" />}
+          unCheckedChildren={<Icon shape="moon" />}
         />
       </Menu.Item>
     </Menu>

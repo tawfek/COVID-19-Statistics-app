@@ -3,13 +3,13 @@ import __ from "../../localization/tr";
 import { Row, Col, Badge, Statistic } from "antd";
 import Chart from "react-apexcharts";
 import { connect } from "react-redux";
-import ReactTimeAgo from "react-time-ago";
-
 import { TeamOutlined, ClockCircleOutlined } from "@ant-design/icons";
 import { LoadingSkeleton } from "../Loading";
-import { Typography } from "antd";
 import Icon from "../icon";
-const { Title } = Typography;
+import Flag from "react-flags";
+import TimeAgo from "react-timeago";
+import { ChartTitle } from "./ChartTitle";
+import { Languages } from "../../localization/languages";
 
 function mapStateToProps(state) {
   return {
@@ -21,9 +21,8 @@ function mapStateToProps(state) {
 }
 
 class DefaultStatistics extends React.Component {
-  // currentCountryData , final_seriess
   render() {
-    let { data, country } = this.props;
+    let { data, country, user } = this.props;
     let { fetchedData } = data;
     let { currentCountryData, currentCountry, currentKey } = country;
     let { isLoaded } = fetchedData;
@@ -38,6 +37,23 @@ class DefaultStatistics extends React.Component {
       dataLabels: { enabled: true },
     };
 
+    const Header = (
+      <ChartTitle
+        title={`${__("header title")} ${__(currentCountry)} `}
+        suffix={
+          <Flag
+            name={currentKey}
+            format="png"
+            pngSize={24}
+            basePath=""
+            style={{ borderRadius: "10px" }}
+            className="flag-popover"
+          />
+        }
+        description={this.props.page.description}
+      />
+    );
+
     if (isLoaded && currentCountryData != null) {
       let { deaths, cases, tests, time } = currentCountryData;
       let ChartData = [
@@ -47,25 +63,23 @@ class DefaultStatistics extends React.Component {
       ];
       return (
         <>
-          <div className="header-info">
-            <Title>
-              {__("header title")} {__(currentCountry)}
-              <img
-                className="flag-popover"
-                alt={__(currentCountry)}
-                src={`../flags-iso/flat/24/${currentKey}.png`}
-              />{" "}
-            </Title>
-            <p>{this.props.page.description}</p>
-          </div>
+          <div className="header-info">{Header}</div>
           <Row key={0}>
             <Col span={24}>
               <p>
                 <ClockCircleOutlined /> {__("last update")}{" "}
-                <ReactTimeAgo
-                  date={Date.parse(time)}
-                  locale={this.props.user.language}
-                />
+                {Languages.map((language) => {
+                  if (language.key === user.language) {
+                    return (
+                      <TimeAgo
+                        key={language.key}
+                        date={Date.parse(time)}
+                        formatter={language.formater}
+                      />
+                    );
+                  }
+                  return "";
+                })}
               </p>
             </Col>
             <Col xs={24} sm={24} md={4} lg={4} xl={4} xxl={4}>
@@ -91,7 +105,7 @@ class DefaultStatistics extends React.Component {
                   <Statistic
                     title={__("active cases")}
                     value={cases.active || 0}
-                    prefix={<Icon shape="activeCases"/> }
+                    prefix={<Icon shape="activeCases" />}
                   />
                 </Col>
                 <Col xs={12} sm={8} md={8} lg={8} xl={8} xxl={8}>
@@ -101,7 +115,7 @@ class DefaultStatistics extends React.Component {
                       color: "#3f8600",
                     }}
                     value={cases.recovered || 0}
-                    prefix={<Icon shape="recovered"/>}
+                    prefix={<Icon shape="recovered" />}
                   />
                 </Col>
                 <Col xs={12} sm={8} md={8} lg={8} xl={8} xxl={8}>
@@ -111,7 +125,7 @@ class DefaultStatistics extends React.Component {
                       color: "#3f8600",
                     }}
                     value={tests.total || 0}
-                    prefix={<Icon shape="tests"/> }
+                    prefix={<Icon shape="tests" />}
                   />
                 </Col>
                 <Col xs={12} sm={8} md={8} lg={8} xl={8} xxl={8}>
@@ -121,7 +135,7 @@ class DefaultStatistics extends React.Component {
                       color: "#cf1322",
                     }}
                     value={cases.critical || 0}
-                    prefix={<Icon shape="critical"/> }
+                    prefix={<Icon shape="critical" />}
                   />
                 </Col>
                 <Col xs={12} sm={8} md={8} lg={8} xl={8} xxl={8}>
@@ -132,7 +146,7 @@ class DefaultStatistics extends React.Component {
                     }}
                     suffix={<Badge dir="ltr" count={deaths.new || 0}></Badge>}
                     value={deaths.total || 0}
-                    prefix={<Icon shape="deaths"/> }
+                    prefix={<Icon shape="deaths" />}
                   />
                 </Col>
               </Row>
@@ -141,7 +155,12 @@ class DefaultStatistics extends React.Component {
         </>
       );
     } else {
-      return <LoadingSkeleton />;
+      return (
+        <>
+          {Header}
+          <LoadingSkeleton />;
+        </>
+      );
     }
   }
 }

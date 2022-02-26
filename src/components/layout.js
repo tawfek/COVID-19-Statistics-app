@@ -7,7 +7,6 @@ import LiquidChart from "../components/charts/liquidChart";
 import { Row, Col } from "antd";
 import __ from "../localization/tr";
 
-
 class DefaultLayout extends React.Component {
   render() {
     return (
@@ -52,7 +51,6 @@ class DefaultLayout extends React.Component {
             <Col span={24} className="bshadow">
               <DaysCollapseChart />
             </Col>
-
             <Col span={24} style={{ marginTop: 10 }} className="bshadow">
               <LiquidChart />
             </Col>
@@ -63,5 +61,4 @@ class DefaultLayout extends React.Component {
   }
 }
 
-
-export default DefaultLayout
+export default DefaultLayout;

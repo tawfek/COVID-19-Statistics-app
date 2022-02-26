@@ -2,13 +2,16 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import { English } from "./languages/english";
 import { Arabic } from "./languages/arabic";
+import { Turkish } from "./languages/turkish";
 import store from "../store";
-const resources = Object.assign({}, Arabic, English);
+import { DEFAULT_LANGUAGE_KEY } from "../config";
+const resources = Object.assign({},  English,Turkish,Arabic);
 
-let lng = "en";
+let lng = DEFAULT_LANGUAGE_KEY
 
 store.subscribe(() => {
   lng = store.getState().root.user.language;
+  i18n.changeLanguage(lng);
 });
 
 i18n
@@ -16,7 +19,7 @@ i18n
   .init({
     resources,
     lng,
-    fallbackLng: "en",
+    fallbackLng: DEFAULT_LANGUAGE_KEY,
     keySeparator: false,
     interpolation: {
       escapeValue: false, // react already safes from xss
