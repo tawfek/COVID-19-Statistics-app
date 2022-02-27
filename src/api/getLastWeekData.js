@@ -23,10 +23,10 @@ const getLastWeekData = (days = 7, includeToday = true) => {
       await axios
         .get(`${ENDPOINT}?d=${date}`)
         .then(async (response) => {
-          response = await response.data;
           try {
+            response = await response.data;
             response.map(async (country) => {
-              let data = await country.response[0];
+              let data = await country.response[0] || false;
               if (data) {
                 let { day, cases, deaths, tests } = data;
                 countries.map((country, key) => {

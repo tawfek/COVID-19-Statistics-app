@@ -19,13 +19,11 @@ const detectCountry = async (callback) => {
         }
       })
       .catch((err) => {
-        message.error(__("unexpected-error"));
         return Promise.reject(err);
       });
     return Country;
   } catch (e) {
     console.error(e);
-    message.error(__("unexpected-error"));
     return -1;
   }
 };

@@ -183,7 +183,7 @@ class DaysCollapseChart extends React.Component {
       return (
         <>
           {Header}
-          <LoadingSkeleton />;
+          <LoadingSkeleton />
         </>
       );
     }

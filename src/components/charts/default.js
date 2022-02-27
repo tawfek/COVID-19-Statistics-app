@@ -78,7 +78,7 @@ class DefaultStatistics extends React.Component {
                       />
                     );
                   }
-                  return "";
+                  return ""
                 })}
               </p>
             </Col>
@@ -153,12 +153,12 @@ class DefaultStatistics extends React.Component {
             </Col>
           </Row>
         </>
-      );
+      )
     } else {
       return (
         <>
           {Header}
-          <LoadingSkeleton />;
+          <LoadingSkeleton />
         </>
       );
     }
