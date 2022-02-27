@@ -4,21 +4,35 @@ namespace Tawfek;
 
 use Tawfek\RapidApi;
 use \DateTime;
+use Phpfastcache\CacheManager;
+use Phpfastcache\Config\ConfigurationOption;
 
 class Covid
 {
     public $Countries = ['Bahrain', 'Cyprus', 'Egypt', 'Iran', 'Iraq', 'Israel', 'Jordan', 'Kuwait', 'Lebanon', 'Oman', 'Palestine', 'Qatar', 'Saudi-Arabia', 'Syria', 'Turkey', 'UAE', 'Yemen'];
     private $rapidApi;
     protected $QueryStrins = [];
-
-
+    protected $InstanceCache = null ;
+    protected $cacheDir = "/var/www/html/tprojects/api/covid/.cache" ;
     public function __construct()
     {
+        // echo $_SERVER["DOCUMENT_ROOT"]; 
         $this->rapidApi = new RapidApi();
         foreach ($this->Countries as $country) {
             $this->rapidApi->addCountry($country);
         }
+
         $this->QueryStrins = $this->getQueryStringParams();
+        if(!is_dir($this->cacheDir)  && !file_exists($this->cacheDir)){
+            $oldmask = umask(0) ;
+            mkdir($this->cacheDir,0777,true) ;
+            umask($oldmask) ;
+        }
+        CacheManager::setDefaultConfig(new ConfigurationOption([
+            'path' => $this->cacheDir, // or in windows "C:/tmp/"
+        ]));
+        $this->InstanceCache = CacheManager::getInstance('files'); 
+
         $this->boot();
     }
 
@@ -34,20 +48,35 @@ class Covid
 
         $country = $this->GetCountryFromRequest();
         $date = $this->GetDateFromRequest();
-
+        $CacheCountry = $this->InstanceCache->getItem($country);
+        $CacheDate = $this->InstanceCache->getItem($date) ;
         if ($country === null && $date === null || ($country === "" && $date === "")) {
             $this->rapidApi->response(["error" => 400, "message" => "Country , or day is required "], 400);
         } else {
             if ($country !== null && $country !== "") {
                 if ($this->CheckCountryAvailability($country)) {
-                    $this->rapidApi->response([$this->rapidApi->getCountryDataByDate($country)]);
+                    if(!$CacheCountry->isHit()){
+                        $result = [$this->rapidApi->getCountryDataByDate($country)] ;
+                        $CacheCountry->set($result)->expiresAfter(86400);//in seconds, also accepts Datetime
+                        $this->InstanceCache->save($CacheCountry); // Save the cache item just like you do with doctrine and entities   
+                        $this->rapidApi->response($CacheCountry->get());
+                    }else{
+                        $this->rapidApi->response($CacheCountry->get());
+                    }
                 } else {
                     $this->rapidApi->response(["error" => 404, "message" => "country not fonud"], 404);
                 }
             }
             if ($date !== null && $date !== "") {
                 if ($this->validateDate($date)) {
-                    $this->rapidApi->response($this->rapidApi->getAllCountriesData($date));
+                    if(!$CacheDate->isHit()){
+                    $result = [$this->rapidApi->getAllCountriesData($date)] ;
+                    $CacheDate->set($result)->expiresAfter(518400);//in seconds, also accepts Datetime
+                    $this->InstanceCache->save($CacheDate); // Save the cache item just like you do with doctrine and entities   
+                    $this->rapidApi->response($CacheDate->get());
+                    }else{
+                        $this->rapidApi->response($CacheDate->get());
+                    }
                 } else {
                     $this->rapidApi->response(["error" => 400, "message" => "Date is invalid format, expected format (y-m-d) , example : 2022-02-22"], 400);
                 }
