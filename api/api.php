@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/include/config.php';
+require_once __DIR__.'/config.php';
 use Tawfek\Covid ; 
 
 $covid = new Covid ;
