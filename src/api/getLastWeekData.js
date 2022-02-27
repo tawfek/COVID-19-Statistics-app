@@ -25,7 +25,7 @@ const getLastWeekData = (days = 7, includeToday = true) => {
         .then(async (response) => {
           try {
             response = await response.data;
-            response.map(async (country) => {
+            response[0].map(async (country) => {
               let data = await country.response[0] || false;
               if (data) {
                 let { day, cases, deaths, tests } = data;
