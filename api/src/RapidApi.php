@@ -15,8 +15,8 @@ class RapidApi
     public $Countries = [];
     public function __construct()
     {
-        $this->host = $_ENV['RAPID_API_HOST'];
-        $this->key = $_ENV['RAPID_API_KEY'];
+        $this->host = RAPID_API_HOST;
+        $this->key = RAPID_API_KEY;
         $this->protocol = $this->secure ? "https" : "http";
         $this->header = [
             "http" => [

@@ -19,3 +19,4 @@ npm-debug.log*
 /api/vendor
 /api/composer.lock
 /api/.env
+/api/.cache

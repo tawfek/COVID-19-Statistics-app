@@ -12,8 +12,8 @@ class Covid
     public $Countries = ['Bahrain', 'Cyprus', 'Egypt', 'Iran', 'Iraq', 'Israel', 'Jordan', 'Kuwait', 'Lebanon', 'Oman', 'Palestine', 'Qatar', 'Saudi-Arabia', 'Syria', 'Turkey', 'UAE', 'Yemen'];
     private $rapidApi;
     protected $QueryStrins = [];
-    protected $InstanceCache = null ;
-    protected $cacheDir = "/var/www/html/tprojects/api/covid/.cache" ;
+    protected $InstanceCache = null;
+    protected $cacheDir = CACHE_PATH;
     public function __construct()
     {
         // echo $_SERVER["DOCUMENT_ROOT"]; 
@@ -23,17 +23,20 @@ class Covid
         }
 
         $this->QueryStrins = $this->getQueryStringParams();
-        if(!is_dir($this->cacheDir)  && !file_exists($this->cacheDir)){
-            $oldmask = umask(0) ;
-            mkdir($this->cacheDir,0777,true) ;
-            umask($oldmask) ;
+        if (!is_dir($this->cacheDir)  && !file_exists($this->cacheDir)) {
+            $oldmask = umask(0);
+            mkdir($this->cacheDir, 0777, true);
+            umask($oldmask);
         }
         CacheManager::setDefaultConfig(new ConfigurationOption([
             'path' => $this->cacheDir, // or in windows "C:/tmp/"
         ]));
-        $this->InstanceCache = CacheManager::getInstance('files'); 
 
-        $this->boot();
+        if (ENABLE_CACHE) {
+            $this->InstanceCache = CacheManager::getInstance('files');
+        }
+
+        
     }
 
 
@@ -48,34 +51,46 @@ class Covid
 
         $country = $this->GetCountryFromRequest();
         $date = $this->GetDateFromRequest();
-        $CacheCountry = $this->InstanceCache->getItem($country);
-        $CacheDate = $this->InstanceCache->getItem($date) ;
+        $CacheCountry = ENABLE_CACHE ? $this->InstanceCache->getItem($country) : true;
+        $CacheDate = ENABLE_CACHE ? $this->InstanceCache->getItem($date) : true;
+
         if ($country === null && $date === null || ($country === "" && $date === "")) {
             $this->rapidApi->response(["error" => 400, "message" => "Country , or day is required "], 400);
         } else {
+
             if ($country !== null && $country !== "") {
                 if ($this->CheckCountryAvailability($country)) {
-                    if(!$CacheCountry->isHit()){
-                        $result = [$this->rapidApi->getCountryDataByDate($country)] ;
-                        $CacheCountry->set($result)->expiresAfter(86400);//in seconds, also accepts Datetime
+                    if (ENABLE_CACHE && !$CacheCountry->isHit()) {
+                        $result = [$this->rapidApi->getCountryDataByDate($country)];
+                        $CacheCountry->set($result)->expiresAfter(86400); //in seconds, cache data for 1 day.
                         $this->InstanceCache->save($CacheCountry); // Save the cache item just like you do with doctrine and entities   
                         $this->rapidApi->response($CacheCountry->get());
-                    }else{
-                        $this->rapidApi->response($CacheCountry->get());
+                    } else {
+                        if (ENABLE_CACHE) {
+                            $this->rapidApi->response($CacheCountry->get());
+                        } else {
+                            $this->rapidApi->response([$this->rapidApi->getCountryDataByDate($country)]);
+                        }
                     }
                 } else {
                     $this->rapidApi->response(["error" => 404, "message" => "country not fonud"], 404);
                 }
             }
+
             if ($date !== null && $date !== "") {
                 if ($this->validateDate($date)) {
-                    if(!$CacheDate->isHit()){
-                    $result = [$this->rapidApi->getAllCountriesData($date)] ;
-                    $CacheDate->set($result)->expiresAfter(518400);//in seconds, also accepts Datetime
-                    $this->InstanceCache->save($CacheDate); // Save the cache item just like you do with doctrine and entities   
-                    $this->rapidApi->response($CacheDate->get());
-                    }else{
+                    if (ENABLE_CACHE && !$CacheDate->isHit()) {
+                        $result = [$this->rapidApi->getAllCountriesData($date)];
+                        $CacheDate->set($result)->expiresAfter(518400); //in seconds, cache data for 7 days 
+                        $this->InstanceCache->save($CacheDate); // Save the cache item just like you do with doctrine and entities   
                         $this->rapidApi->response($CacheDate->get());
+                    } else {
+
+                        if (ENABLE_CACHE) {
+                            $this->rapidApi->response($CacheDate->get());
+                        } else {
+                            $this->rapidApi->response([$this->rapidApi->getAllCountriesData($date)]);
+                        }
                     }
                 } else {
                     $this->rapidApi->response(["error" => 400, "message" => "Date is invalid format, expected format (y-m-d) , example : 2022-02-22"], 400);
