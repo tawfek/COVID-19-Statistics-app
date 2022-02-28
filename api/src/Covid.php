@@ -35,8 +35,6 @@ class Covid
         if (ENABLE_CACHE) {
             $this->InstanceCache = CacheManager::getInstance('files');
         }
-
-        
     }
 
 
