@@ -16,7 +16,7 @@ class Covid
     protected $cacheDir = CACHE_PATH;
     public function __construct()
     {
-        // echo $_SERVER["DOCUMENT_ROOT"]; 
+
         $this->rapidApi = new RapidApi();
         foreach ($this->Countries as $country) {
             $this->rapidApi->addCountry($country);
