@@ -9,7 +9,7 @@ class Home extends React.Component {
     return (
       <Row>
         <Col dir="ltr" sm={24} md={24}>
-          <CountriesTab history={this.props.history} />;
+          <CountriesTab history={this.props.history} />
           <DefaultLayout />
         </Col>
       </Row>
