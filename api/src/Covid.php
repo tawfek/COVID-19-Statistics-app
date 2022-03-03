@@ -9,7 +9,6 @@ use Phpfastcache\Config\ConfigurationOption;
 
 class Covid
 {
-    public $Countries = ['Bahrain', 'Cyprus', 'Egypt', 'Iran', 'Iraq', 'Israel', 'Jordan', 'Kuwait', 'Lebanon', 'Oman', 'Palestine', 'Qatar', 'Saudi-Arabia', 'Syria', 'Turkey', 'UAE', 'Yemen'];
     private $rapidApi;
     protected $QueryStrins = [];
     protected $InstanceCache = null;
@@ -18,10 +17,6 @@ class Covid
     {
 
         $this->rapidApi = new RapidApi();
-        foreach ($this->Countries as $country) {
-            $this->rapidApi->addCountry($country);
-        }
-
         $this->QueryStrins = $this->getQueryStringParams();
         if (!is_dir($this->cacheDir)  && !file_exists($this->cacheDir)) {
             $oldmask = umask(0);
@@ -36,6 +31,8 @@ class Covid
             $this->InstanceCache = CacheManager::getInstance('files');
         }
     }
+
+
 
 
 
@@ -98,6 +95,20 @@ class Covid
     }
 
 
+
+    /**
+     * add countries to the list of supported countries.
+     * @param Array $countries required ,array containing supported country names
+     * @return void
+     */
+    public function addCountries(array $countries)
+    {
+
+        foreach ($countries as $country) {
+            $this->addCountry($country);
+        }
+    }
+
     /**
      * add country to the list of supported countries.
      * @param String $country required , name of the country
@@ -149,7 +160,7 @@ class Covid
      */
     protected function CheckCountryAvailability($country_name): Bool
     {
-        return in_array($country_name, $this->Countries);
+        return in_array($country_name, $this->rapidApi->getSupportedCountries());
     }
 
     /**

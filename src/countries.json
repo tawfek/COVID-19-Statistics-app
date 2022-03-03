@@ -3,10 +3,8 @@
 		{
 			"country": {
 				"name": "Bahrain",
-				"name_ar": "البحرين",
 				"search": "Bahrain",
 				"iso": "BH",
-				"emoji": "🇧🇭",
 				"coordinates": {
 					"lat": "26.216667",
 					"lng": "50.583333"
@@ -16,10 +14,8 @@
 		{
 			"country": {
 				"name": "Cyprus",
-				"name_ar": "قبرص",
 				"search": "Cyprus",
 				"iso": "CY",
-				"emoji": "🇨🇾",
 				"coordinates": {
 					"lat": "35.166667",
 					"lng": "33.366667"
@@ -29,10 +25,8 @@
 		{
 			"country": {
 				"name": "Egypt",
-				"name_ar": "مصر",
 				"search": "Egypt",
 				"iso": "EG",
-				"emoji": "🇪🇬",
 				"coordinates": {
 					"lat": "30.033333",
 					"lng": "31.216667"
@@ -42,10 +36,8 @@
 		{
 			"country": {
 				"name": "Iran",
-				"name_ar": "ايران",
 				"search": "Iran",
 				"iso": "IR",
-				"emoji": "🇮🇷",
 				"coordinates": {
 					"lat": "35.683333",
 					"lng": "51.416667"
@@ -55,10 +47,8 @@
 		{
 			"country": {
 				"name": "Iraq",
-				"name_ar": "العراق",
 				"search": "Iraq",
 				"iso": "IQ",
-				"emoji": "🇮🇶",
 				"coordinates": {
 					"lat": "33.223191",
 					"lng": "43.679291"
@@ -68,10 +58,8 @@
 		{
 			"country": {
 				"name": "Israel",
-				"name_ar": "اسرائيل (فلسطين المحتله)",
 				"search": "Israel",
 				"iso": "IL",
-				"emoji": "🇮🇱",
 				"coordinates": {
 					"lat": "31.046051",
 					"lng": "34.851612"
@@ -81,10 +69,8 @@
 		{
 			"country": {
 				"name": "Jordan",
-				"name_ar": "الاردن",
 				"search": "Jordan",
 				"iso": "JO",
-				"emoji": "🇯🇴",
 				"coordinates": {
 					"lat": "30.585164",
 					"lng": "36.238414"
@@ -94,10 +80,8 @@
 		{
 			"country": {
 				"name": "Kuwait",
-				"name_ar": "الكويت",
 				"search": "Kuwait",
 				"iso": "KW",
-				"emoji": "🇰🇼",
 				"coordinates": {
 					"lat": "29.31166",
 					"lng": "47.481766"
@@ -107,10 +91,8 @@
 		{
 			"country": {
 				"name": "Lebanon",
-				"name_ar": "لبنان",
 				"search": "Lebanon",
 				"iso": "LB",
-				"emoji": "🇱🇧",
 				"coordinates": {
 					"lat": "33.854721",
 					"lng": "35.862285"
@@ -120,10 +102,8 @@
 		{
 			"country": {
 				"name": "Oman",
-				"name_ar": "سلطنة عُمان ",
 				"search": "Oman",
 				"iso": "OM",
-				"emoji": "🇴🇲",
 				"coordinates": {
 					"lat": "21.512583",
 					"lng": "55.923255"
@@ -133,10 +113,8 @@
 		{
 			"country": {
 				"name": "Palestine",
-				"name_ar": "فلسطين",
 				"search": "Palestine",
 				"iso": "PS",
-				"emoji": "🇵🇸",
 				"coordinates": {
 					"lat": "31.952162",
 					"lng": "35.233154"
@@ -146,10 +124,8 @@
 		{
 			"country": {
 				"name": "Qatar",
-				"name_ar": "قطر",
 				"search": "Qatar",
 				"iso": "QA",
-				"emoji": "🇶🇦",
 				"coordinates": {
 					"lat": "25.354826",
 					"lng": "51.183884"
@@ -159,10 +135,8 @@
 		{
 			"country": {
 				"name": "Saudi Arabia",
-				"name_ar": "السعودية",
 				"search": "Saudi-Arabia",
 				"iso": "SA",
-				"emoji": "🇸🇦",
 				"coordinates": {
 					"lat": "23.885942",
 					"lng": "45.079162"
@@ -172,10 +146,8 @@
 		{
 			"country": {
 				"name": "Syria",
-				"name_ar": "سورية",
 				"search": "Syria",
 				"iso": "SY",
-				"emoji": "🇸🇾",
 				"coordinates": {
 					"lat": "34.802075",
 					"lng": "38.996815"
@@ -185,10 +157,8 @@
 		{
 			"country": {
 				"name": "Turkey",
-				"name_ar": "تركيا",
 				"search": "Turkey",
 				"iso": "TR",
-				"emoji": "🇹🇷",
 				"coordinates": {
 					"lat": "38.963745",
 					"lng": "35.243322"
@@ -198,10 +168,8 @@
 		{
 			"country": {
 				"name": "United Arab Emirates",
-				"name_ar": "الإمارات",
 				"search": "UAE",
 				"iso": "AE",
-				"emoji": "🇦🇪",
 				"coordinates": {
 					"lat": "23.424076",
 					"lng": "53.847818"
@@ -211,13 +179,22 @@
 		{
 			"country": {
 				"name": "Yemen",
-				"name_ar": "اليمن",
 				"search": "Yemen",
 				"iso": "YE",
-				"emoji": "🇾🇪",
 				"coordinates": {
 					"lat": "15.552727",
 					"lng": "48.516388"
+				}
+			}
+		},
+		{
+			"country": {
+				"name": "China",
+				"search": "China",
+				"iso": "CN",
+				"coordinates": {
+					"lat": "35.8617",
+					"lng": "104.1954"
 				}
 			}
 		}

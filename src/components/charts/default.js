@@ -54,7 +54,7 @@ class DefaultStatistics extends React.Component {
       />
     );
 
-    if (isLoaded && currentCountryData != null) {
+    if (isLoaded && currentCountryData !== null) {
       let { deaths, cases, tests, time } = currentCountryData;
       let ChartData = [
         deaths.total || 0,
@@ -157,7 +157,7 @@ class DefaultStatistics extends React.Component {
     } else {
       return (
         <>
-          {Header}
+          {Header} 
           <LoadingSkeleton />
         </>
       );

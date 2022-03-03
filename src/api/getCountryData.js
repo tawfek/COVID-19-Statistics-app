@@ -14,10 +14,10 @@ const GetCountriesData = () => {
       try {
         await axios.get(`${ENDPOINT}?country=${countryId}`).then((response) => {
           response = response.data;
-          if (response.response !== undefined) {
+          if (response[0].response !== undefined) {
             fullData.push({
               country: countryId,
-              response: response.response[response.response.length - 1],
+              response: response[0].response[response[0].response.length - 1],
             });
           }
         });

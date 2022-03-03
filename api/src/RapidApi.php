@@ -119,6 +119,16 @@ class RapidApi
     }
 
     /**
+     * get supported countries list 
+     * @return array
+     */
+    public function getSupportedCountries(): array
+    {
+        return $this->Countries;
+    }
+
+
+    /**
      * Get data foreach country listed in Countries list . 
      * @param String $date optional , if not assigned returns today's date
      * @return Array
