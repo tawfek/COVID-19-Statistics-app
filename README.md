@@ -27,7 +27,7 @@ is a web application for showing countries that have been affected by the COVID-
 * Responsive design with all devices.
 * Cure percent.
 * Multi-languages support.
-* 4 languages are ready to use, Arabic, English, Chinese, and Turkish. you can add more from the [Configurations page](configurations.md#languages).
+* 4 languages are ready to use, Arabic, English, Chinese, and Turkish. you can add more from the [Configurations page](https://covid-docs.tprojects.eu/configurations#adding-a-new-language).
 * RTL supported.
 * 5 types of cases are available, active cases, Recovered, Critical, Deaths, and tests included.
 * dark mode supported with wonderful UI design.
