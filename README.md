@@ -1,8 +1,3 @@
----
-cover: .gitbook/assets/cover.png
-coverY: 0
----
-
 # 👋 Introduction
 
 
@@ -39,9 +34,10 @@ is a web application for showing countries that have been affected by the COVID-
 * cache API requests for best performance and fast load page.
 
 ## Demo&#x20;
+[Demo](https://covid.tprojects.eu)
 
-{% embed url="https://covid.tprojects.eu" %}
-
+## Documentation
+[go to the Documentation ](https://covid-docs.tprojects.eu/)
 ## Author
 
 [Tawfek.M](https://github.com/tawfek)
