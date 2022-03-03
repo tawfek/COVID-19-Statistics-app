@@ -1,5 +1,5 @@
 ---
-cover: .gitbook/assets/covid-cover (4).png
+cover: .gitbook/assets/cover.png
 coverY: 0
 ---
 
