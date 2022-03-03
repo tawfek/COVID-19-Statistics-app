@@ -3,11 +3,12 @@ import { initReactI18next } from "react-i18next";
 import { English } from "./languages/english";
 import { Arabic } from "./languages/arabic";
 import { Turkish } from "./languages/turkish";
+import { Chinese } from "./languages/chinese";
 import store from "../store";
 import { DEFAULT_LANGUAGE_KEY } from "../config";
-const resources = Object.assign({},  English,Turkish,Arabic);
+const resources = Object.assign({}, English, Turkish, Arabic, Chinese);
 
-let lng = DEFAULT_LANGUAGE_KEY
+let lng = DEFAULT_LANGUAGE_KEY;
 
 store.subscribe(() => {
   lng = store.getState().root.user.language;
