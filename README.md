@@ -32,11 +32,11 @@ is a web application for showing countries that have been affected by the COVID-
 * Responsive design with all devices.
 * Cure percent.
 * Multi-languages support.
-* 3 languages are ready to use, Arabic, English, and Turkish. you can add more from the [Configurations page](configurations.md#languages).
+* 4 languages are ready to use, Arabic, English, Chinese, and Turkish. you can add more from the [Configurations page](configurations.md#languages).
 * RTL supported.
 * 5 types of cases are available, active cases, Recovered, Critical, Deaths, and tests included.
 * dark mode supported with wonderful UI design.
-* cache API requests for best performance and fast load.
+* cache API requests for best performance and fast load page.
 
 ## Demo&#x20;
 
