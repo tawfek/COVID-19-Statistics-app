@@ -9,7 +9,7 @@ coverY: 0
 
 ![](.gitbook/assets/COVID19.png)
 
-## ****[**COVID-19 statistics**](http://covid.tprojects.eu) ****&#x20;
+## ****[**COVID-19 statistics**](http://covid.tprojects.eu)
 
 is a web application for showing countries that have been affected by the COVID-19 virus. As a chart, map, and percentages.
 
