@@ -2,7 +2,7 @@
 
 
 
-![](.gitbook/assets/COVID19.png)
+![COVID19-cover.png](public/app-icons/COVID19-cover.png)
 
 ## **COVID-19 statistics**
 
