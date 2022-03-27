@@ -4,11 +4,14 @@
 
 ![COVID19-cover.png](public/app-icons/COVID19-cover.png)
 
-## **COVID-19 statistics**
+
+## **COVID-19 statistics** ![visitors](https://visitor-badge.glitch.me/badge?page_id=COVID-19-Statistics-app&left_color=#228ada&right_color=#1c1c27)
 
 is a web application for showing countries that have been affected by the COVID-19 virus. As a chart, map, and percentages.
 
-
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
+![php](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
 
 ## Requirements <a href="#requirements" id="requirements"></a>
 
