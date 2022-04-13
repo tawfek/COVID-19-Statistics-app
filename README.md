@@ -30,17 +30,17 @@ is a web application for showing countries that have been affected by the COVID-
 * Responsive design with all devices.
 * Cure percent.
 * Multi-languages support.
-* 4 languages are ready to use, Arabic, English, Chinese, and Turkish. you can add more from the [Configurations page](https://covid-docs.tprojects.eu/configurations#adding-a-new-language).
+* 4 languages are ready to use, Arabic, English, Chinese, and Turkish. you can add more from the [Configurations page](https://covid-docs.tawfekm.com/configurations#adding-a-new-language).
 * RTL supported.
 * 5 types of cases are available, active cases, Recovered, Critical, Deaths, and tests included.
 * dark mode supported with wonderful UI design.
 * cache API requests for best performance and fast load page.
 
 ## Demo&#x20;
-[Demo](https://covid.tprojects.eu)
+[Demo](https://covid.tawfekm.com)
 
 ## Documentation
-[go to the Documentation ](https://covid-docs.tprojects.eu/)
+[go to the Documentation ](https://covid-docs.tawfekm.com/)
 ## Author
 
 [Tawfek.M](https://github.com/tawfek)
