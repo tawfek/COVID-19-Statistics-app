@@ -44,7 +44,7 @@
     "react-g2plot": "^0.1.1",
     "react-ga": "^2.7.0",
     "react-helmet": "^6.0.0",
-    "react-hot-loader": "^4.13.0",
+    "react-hot-loader": "^4.13.1",
     "react-i18next": "^11.3.4",
     "react-map-gl": "^5.2.3",
     "react-mapbox-gl": "^4.8.3",
@@ -52,7 +52,7 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.1.2",
     "react-router-redux": "^4.0.8",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "react-time-ago": "^5.0.8",
     "react-timeago": "^6.2.1",
     "redux": "^4.1.2",
@@ -85,7 +85,7 @@
   "devDependencies": {
     "create-react-class": "^15.7.0",
     "customize-cra": "^0.9.1",
-    "less-loader": "^5.0.0",
+    "less-loader": "^11.1.0",
     "react-app-rewired": "^2.1.5",
     "sass": "^1.49.8",
     "terser-brunch": "^4.1.0"
